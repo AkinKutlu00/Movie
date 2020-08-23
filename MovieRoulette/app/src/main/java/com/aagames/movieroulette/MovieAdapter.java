@@ -1,10 +1,14 @@
 package com.aagames.movieroulette;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,7 +57,42 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             @Override
             public void onClick(View v) {
                 Toast.makeText(context,mMovieList.get(position).getName(),Toast.LENGTH_SHORT).show();
+
+
+
             }
+        });
+
+        holder.movieImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog builder=new Dialog(v.getContext());
+                View view=LayoutInflater.from(context).inflate(R.layout.moviepopup,null);
+
+                TextView tvname=(TextView)view.findViewById(R.id.name);
+                tvname.setText(mMovieList.get(position).getName());
+
+                Button close = (Button) view.findViewById(R.id.close);
+
+
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        builder.dismiss();
+
+
+                    }
+                });
+
+                builder.setContentView(view);
+
+
+
+
+
+                builder.show();
+            }
+
         });
 
     }

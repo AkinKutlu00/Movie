@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -150,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 movieList1.get(randomNumber).setRevealed(true);
                 Toast.makeText(getApplicationContext()," "+ randomNumber,Toast.LENGTH_SHORT).show();
                 mAdapter.notifyDataSetChanged();
+
 
 
             }
