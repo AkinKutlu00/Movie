@@ -1,11 +1,13 @@
 package com.aagames.movieroulette;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,9 +18,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     private ArrayList<MovieItem> mMovieList;
 
+    Context context;
 
-    public MovieAdapter(ArrayList<MovieItem> movieList){
 
+    public MovieAdapter(Context context, ArrayList<MovieItem> movieList){
+
+        this.context=context;
         mMovieList= movieList;
 
     }
@@ -33,9 +38,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MovieViewHolder holder, final int position) {
 
         MovieItem currentItem = mMovieList.get(position);
+
         if(currentItem.getRevealed()){
             holder.movieImageView.setBackgroundColor(Color.rgb(255, 0, 0));;
         }else{
@@ -43,6 +49,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             holder.movieImageView.setBackgroundColor(Color.rgb(0, 0, 255));;
         }
          holder.movieNameTv.setText(""+position);
+        holder.movieImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,mMovieList.get(position).getName(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
