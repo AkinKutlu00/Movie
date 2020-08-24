@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private Button random;
+
+    //silinecek
+    Button button;
+
     int maxNumber;
 
 
@@ -37,6 +42,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //silinecek
+        final Intent intent = new Intent(this, Login.class);
+
+        button= (Button) findViewById(R.id.button4);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent);
+
+            }
+        });
+
+
+        //silin sonu
 
         final ArrayList<MovieItem> movieList1 = new ArrayList<>();
         final ArrayList<MovieItem> movieListBlue = new ArrayList<>();
@@ -53,10 +73,6 @@ public class MainActivity extends AppCompatActivity {
         myRecyclerView = findViewById(R.id.myRecyclerView);
         myRecyclerView.setHasFixedSize(true);
         mLayoutManager = new GridLayoutManager(this,10);
-
-
-
-
 
 
 
