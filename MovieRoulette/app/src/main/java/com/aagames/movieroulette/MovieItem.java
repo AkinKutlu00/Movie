@@ -5,11 +5,11 @@ public class MovieItem {
     private String imageCode;
     private boolean revealed;
 
-    public MovieItem(String name, String imageCode){
+    public MovieItem(String name, String imageCode, Boolean revealed){
 
         this.name=name;
         this.imageCode=imageCode;
-        revealed=false;
+        this.revealed=revealed;
     }
 
     public MovieItem() {

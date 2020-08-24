@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "260352236135",
+    "firebase_url": "https://movie-roulette-c5195.firebaseio.com",
+    "project_id": "movie-roulette-c5195",
+    "storage_bucket": "movie-roulette-c5195.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260352236135:android:b1ac4cab495850bc9892c2",
+        "android_client_info": {
+          "package_name": "com.aagames.movieroulette"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "260352236135-rnm6d1golpg2is1jijgntvr2c59hpk8h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1F5H_aI_ekAC0k8CbiRE6okpG9zkxlCo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "260352236135-rnm6d1golpg2is1jijgntvr2c59hpk8h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

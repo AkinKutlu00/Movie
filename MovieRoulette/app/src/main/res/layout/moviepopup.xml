@@ -32,15 +32,17 @@
 
 
     <TextView
+        android:id="@+id/foto"
         android:layout_width="350dp"
-        android:layout_height="350dp"
+        android:layout_height="250dp"
         android:gravity="center"
         android:textSize="30dp"
         android:text="Movie İmage"/>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:gravity="center"
+        android:id="@+id/have"
         android:textSize="27dp"
         android:text="Have you watched this movie?"/>
 
@@ -50,7 +52,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/yes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -58,7 +60,7 @@
             android:text="Yes" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

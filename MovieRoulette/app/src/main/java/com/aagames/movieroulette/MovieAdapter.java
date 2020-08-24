@@ -16,6 +16,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
@@ -23,6 +26,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private ArrayList<MovieItem> mMovieList;
 
     Context context;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("Imdb");
 
 
     public MovieAdapter(Context context, ArrayList<MovieItem> movieList){
@@ -42,7 +47,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MovieViewHolder holder, final int position) {
 
         MovieItem currentItem = mMovieList.get(position);
 
@@ -52,7 +57,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
             holder.movieImageView.setBackgroundColor(Color.rgb(0, 0, 255));;
         }
-         holder.movieNameTv.setText(""+position);
+        holder.movieNameTv.setText(""+position);
         holder.movieImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +77,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 TextView tvname=(TextView)view.findViewById(R.id.name);
                 tvname.setText(mMovieList.get(position).getName());
 
+                TextView tvfoto=(TextView)view.findViewById(R.id.foto);
+                tvfoto.setText(mMovieList.get(position).getImageCode());
+
                 Button close = (Button) view.findViewById(R.id.close);
 
 
@@ -84,6 +92,29 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                     }
                 });
 
+
+                Button yes = (Button) view.findViewById(R.id.yes);
+                Button no = (Button) view.findViewById(R.id.no);
+
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mMovieList.get(position).setRevealed(true);
+                        myRef.child(position+"").child("revealed").setValue(true);
+
+                        builder.dismiss();
+
+                    }
+                });
+
+
+                no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mMovieList.get(position).setRevealed(false);
+                        builder.dismiss();
+                    }
+                });
                 builder.setContentView(view);
 
 
