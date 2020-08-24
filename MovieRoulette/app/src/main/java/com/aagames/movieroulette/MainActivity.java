@@ -30,7 +30,10 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView myRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView.LayoutManager mLayoutManager2;
+
     private Button random;
+    Button plus;
 
     //silinecek
     Button button;
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         //silinecek
         final Intent intent = new Intent(this, Login.class);
 
-        button= (Button) findViewById(R.id.button4);
+        button= (Button) findViewById(R.id.button9);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         //silin sonu
+
+
 
         final ArrayList<MovieItem> movieList1 = new ArrayList<>();
         final ArrayList<MovieItem> movieListBlue = new ArrayList<>();
@@ -74,6 +79,15 @@ public class MainActivity extends AppCompatActivity {
         myRecyclerView.setHasFixedSize(true);
         mLayoutManager = new GridLayoutManager(this,10);
 
+        plus = (Button) findViewById(R.id.plus);
+
+        plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mLayoutManager = new GridLayoutManager(getApplicationContext(),5);
+                myRecyclerView.setLayoutManager(mLayoutManager);
+            }
+        });
 
 
         myRef.addValueEventListener(new ValueEventListener() {
