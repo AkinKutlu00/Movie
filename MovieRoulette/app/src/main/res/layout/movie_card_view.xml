@@ -18,7 +18,7 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher_background" />
+            android:src="@drawable/back" />
 
         <TextView
             android:id="@+id/nameMovie"
@@ -28,6 +28,7 @@
             android:gravity="center"
             android:text="Name "
             android:textSize="8dp"
+            android:textColor="#FFFFFF"
             android:textStyle="bold" />
 
 

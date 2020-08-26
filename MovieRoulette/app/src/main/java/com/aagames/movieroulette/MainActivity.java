@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button random;
     Button plus;
+    Button minus;
 
     //silinecek
     Button button;
@@ -80,12 +81,26 @@ public class MainActivity extends AppCompatActivity {
         mLayoutManager = new GridLayoutManager(this,10);
 
         plus = (Button) findViewById(R.id.plus);
+        minus = (Button) findViewById(R.id.minus);
+
 
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mLayoutManager = new GridLayoutManager(getApplicationContext(),5);
+                mLayoutManager = new GridLayoutManager(getApplicationContext(),3);
                 myRecyclerView.setLayoutManager(mLayoutManager);
+                mAdapter = new MovieAdapterPlus(getApplicationContext(),movieList1);
+                myRecyclerView.setAdapter(mAdapter);
+            }
+        });
+
+        minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mLayoutManager = new GridLayoutManager(getApplicationContext(),10);
+                myRecyclerView.setLayoutManager(mLayoutManager);
+                mAdapter = new MovieAdapter(getApplicationContext(),movieList1);
+                myRecyclerView.setAdapter(mAdapter);
             }
         });
 

@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
+public class MovieAdapterPlus extends RecyclerView.Adapter<MovieAdapterPlus.MovieViewHolder> {
 
     private ArrayList<MovieItem> mMovieList;
 
@@ -30,7 +30,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     DatabaseReference myRef = database.getReference("Imdb");
 
 
-    public MovieAdapter(Context context, ArrayList<MovieItem> movieList){
+    public MovieAdapterPlus(Context context, ArrayList<MovieItem> movieList){
 
         this.context=context;
         mMovieList= movieList;
@@ -41,7 +41,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_card_view, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_card_view_5x7, parent, false);
         MovieViewHolder mvh = new MovieViewHolder(v);
         return mvh;
     }
@@ -52,15 +52,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         MovieItem currentItem = mMovieList.get(position);
 
         if(currentItem.getRevealed()){
-            holder.movieImageView.setImageResource(R.drawable.back);
-            holder.movieImageView.setBackgroundColor(Color.rgb(255, 0, 0));;
-        }else{
             holder.movieImageView.setImageResource(R.drawable.back2);
-            holder.movieImageView.setBackgroundColor(Color.rgb(0, 0, 255));;
+            //holder.movieNameTv.setTextColor(Color.rgb(255, 0, 0));
+            //holder.movieImageView.setBackgroundColor(Color.rgb(255, 0, 0));;
+        }else{
+            holder.movieImageView.setImageResource(R.drawable.back);
+            //holder.movieImageView.setBackgroundColor(Color.rgb(0, 0, 255));;
         }
-
-
-        holder.movieNameTv.setText(""+position);
+        holder.movieNameTv.setText(""+mMovieList.get(position).getName());
         holder.movieImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +113,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 no.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //mMovieList.get(position).setRevealed(false);
                         myRef.child(position+"").child("revealed").setValue(false);
                         builder.dismiss();
                     }
