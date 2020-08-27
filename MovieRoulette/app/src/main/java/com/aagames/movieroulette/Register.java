@@ -30,6 +30,7 @@ public class Register extends AppCompatActivity {
     EditText password;
     EditText confirm;
 
+    ArrayList<String> moviePath = new ArrayList<>();
     Button register;
 
     FirebaseAuth auth;
@@ -43,6 +44,11 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        moviePath.add("imdb");
+        moviePath.add("Rotten Tomatoes");
+
+
+
 
         username = findViewById(R.id.userEt);
         emailEt = findViewById(R.id.mailEt);
@@ -51,7 +57,10 @@ public class Register extends AppCompatActivity {
 
         register = findViewById(R.id.register);
 
+        final ArrayList<Object> movieLists = new ArrayList<>();
+
         final ArrayList<MovieItem> movieList1 = new ArrayList<>();
+
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,11 +73,38 @@ public class Register extends AppCompatActivity {
                 String confirmPassword = confirm.getText().toString();
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                final DatabaseReference myRef = database.getReference("movielists").child("imdb");
+                DatabaseReference myRef = database.getReference("movielists").child("imdb");
+                final DatabaseReference myRef2 = database.getReference("movielists").child("Rotten Tomatoes");
+
+
+                for(int i=0; moviePath.size()>i; i++){
+                    myRef = database.getReference("movielists").child(moviePath.get(i));
+
+                    myRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            movieList1.clear();
+
+                            for( DataSnapshot dataSnapshot1: snapshot.getChildren() )
+                            {
+                                MovieItem n = dataSnapshot1.getValue( MovieItem.class );
+                                movieList1.add( n );
+
+                            }
+
+                            movieLists.add(movieList1);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
 
 
 
 
+                }
 
 
                 // displaying progressbar
@@ -77,28 +113,9 @@ public class Register extends AppCompatActivity {
                 auth = FirebaseAuth.getInstance();
 
 
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        movieList1.clear();
 
 
-                        for( DataSnapshot dataSnapshot1: snapshot.getChildren() )
-                        {
-                            MovieItem n = dataSnapshot1.getValue( MovieItem.class );
-                            movieList1.add( n );
 
-
-                        }
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
 
                 // if one of the editTexts is empty
                 if ( TextUtils.isEmpty(email) || TextUtils.isEmpty(passwordString) || TextUtils.isEmpty(confirmPassword) )
@@ -134,8 +151,10 @@ public class Register extends AppCompatActivity {
 
                                    // FirebaseDatabase.getInstance().getReference().child("movielists").child("imdb").setValue(movieList1);
 
-                                    FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists").child("imdb").setValue(movieList1);
+                                    for(int i=0;i<moviePath.size();i++){
+                                        FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists").child(moviePath.get(i)).setValue(movieLists.get(i));
 
+                                    }
 
 
 

@@ -177,14 +177,14 @@ public class MainActivity extends AppCompatActivity {
                 }else if(mod == 1){
                     mLayoutManager = new GridLayoutManager(getApplicationContext(),3);
                     myRecyclerView.setLayoutManager(mLayoutManager);
-                    mAdapter = new MovieAdapterPlus(getApplicationContext(),movieList1);
+                    mAdapter = new MovieAdapterPlus(getApplicationContext(),movieList1,listName);
                     myRecyclerView.setAdapter(mAdapter);
 
 
                 }else{
                     mLayoutManager = new GridLayoutManager(getApplicationContext(),1);
                     myRecyclerView.setLayoutManager(mLayoutManager);
-                    mAdapter = new MovieAdapterBig(getApplicationContext(),movieList1);
+                    mAdapter = new MovieAdapterBig(getApplicationContext(),movieList1,listName);
                     myRecyclerView.setAdapter(mAdapter);
 
                 }
@@ -210,14 +210,14 @@ public class MainActivity extends AppCompatActivity {
                 }else if(mod == 1){
                     mLayoutManager = new GridLayoutManager(getApplicationContext(),3);
                     myRecyclerView.setLayoutManager(mLayoutManager);
-                    mAdapter = new MovieAdapterPlus(getApplicationContext(),movieList1);
+                    mAdapter = new MovieAdapterPlus(getApplicationContext(),movieList1,listName);
                     myRecyclerView.setAdapter(mAdapter);
 
 
                 }else if(mod == 2){
                     mLayoutManager = new GridLayoutManager(getApplicationContext(),1);
                     myRecyclerView.setLayoutManager(mLayoutManager);
-                    mAdapter = new MovieAdapterBig(getApplicationContext(),movieList1);
+                    mAdapter = new MovieAdapterBig(getApplicationContext(),movieList1,listName);
                     myRecyclerView.setAdapter(mAdapter);
 
                 }
@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
                 for( DataSnapshot dataSnapshot1: snapshot.getChildren() )
                 {
                     MovieItem n = dataSnapshot1.getValue( MovieItem.class );
-                    System.out.println(n.getName()+" hakan ");
+                    //System.out.println(n.getName()+" hakan ");
                     movieList1.add( n );
                 }
 

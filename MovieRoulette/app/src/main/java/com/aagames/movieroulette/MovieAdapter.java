@@ -123,9 +123,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 builder.setContentView(view);
 
 
-
-
-
                 builder.show();
             }
 

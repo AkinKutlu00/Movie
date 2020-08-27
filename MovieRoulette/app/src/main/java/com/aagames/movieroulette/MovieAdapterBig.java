@@ -31,7 +31,7 @@ public class MovieAdapterBig extends RecyclerView.Adapter<MovieAdapterBig.MovieV
     DatabaseReference myRef = database.getReference("Imdb");
 
 
-    public MovieAdapterBig(Context context, ArrayList<MovieItem> movieList){
+    public MovieAdapterBig(Context context, ArrayList<MovieItem> movieList, String child){
 
         this.context=context;
         mMovieList= movieList;
