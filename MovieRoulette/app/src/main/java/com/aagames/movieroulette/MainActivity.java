@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //movieList1.get(randomNumber).setRevealed(true);
-                        myRef.child(finalRandomNumber +"").child("revealed").setValue(true);
+                        myRef.child(listName).child(finalRandomNumber +"").child("revealed").setValue(true);
 
                         builder.dismiss();
 
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
                 no.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        movieList1.get(finalRandomNumber).setRevealed(false);
+                        myRef.child(listName).child(finalRandomNumber +"").child("revealed").setValue(false);
                         builder.dismiss();
                     }
                 });
@@ -345,6 +345,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        mod =0;
+        mLayoutManager = new GridLayoutManager(getApplicationContext(),10);
         mAdapter = new MovieAdapter(getApplicationContext(),movieList1,listName);
         myRecyclerView.setLayoutManager(mLayoutManager);
         myRecyclerView.setAdapter(mAdapter);
