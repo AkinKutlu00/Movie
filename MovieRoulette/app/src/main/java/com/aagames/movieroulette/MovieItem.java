@@ -12,6 +12,13 @@ public class MovieItem {
         this.revealed=revealed;
     }
 
+
+    public MovieItem(String name, String imageCode){
+
+        this.name=name;
+        this.imageCode=imageCode;
+        this.revealed=false;
+    }
     public MovieItem() {
     }
 
