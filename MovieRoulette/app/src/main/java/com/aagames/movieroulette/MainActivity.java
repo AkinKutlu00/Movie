@@ -43,13 +43,17 @@ public class MainActivity extends AppCompatActivity {
     List< String > filter;
     TextView title;
 
+    String listName;
+
     //silinecek
     Button button;
 
     int maxNumber;
     int spinnerNo;
     int mod;
-
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final DatabaseReference myRef = database.getReference("movielists");
+    final ArrayList<MovieItem> movieList1 = new ArrayList<>();
 
 
     @Override
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mod=0;
+        listName = "imdb";
 
         //silinecek
         final Intent intent = new Intent(this, Login.class);
@@ -80,13 +85,16 @@ public class MainActivity extends AppCompatActivity {
 
         spinner = findViewById(R.id.spinner);
 
-        final ArrayList<MovieItem> movieList1 = new ArrayList<>();
+
+        final ArrayList<MovieItem> movieList2 = new ArrayList<>();
         final ArrayList<MovieItem> movieListBlue = new ArrayList<>();
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("Imdb");
 
 
+
+        DatabaseReference imdb = database.getReference("movielists").child("imdb");
+
+        //FirebaseDatabase.getInstance().getReference().child("movielists").child("Rotten Tomatoes").setValue(movieList2);
         //myRef.child("0").child("revealed").setValue(true);
         //movieList1.get(0).setRevealed(true);
 
@@ -99,6 +107,36 @@ public class MainActivity extends AppCompatActivity {
         filter.add("Science Fiction");
         filter.add("Documentary");
         filter.add("New Category");
+
+        spinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected( AdapterView<?> parent, View view, int position, long id ) {
+
+                title.setText(spinner.getSelectedItem().toString()+" (30" +"/"+"100)");
+
+                if(position == 0 ){
+                    changeDatabase("imdb");
+
+
+                }else if(position == 1){
+
+                    changeDatabase("Rotten Tomatoes");
+
+
+                }else if(position == 6){
+
+
+                    startActivity(new Intent(getApplicationContext(),NewCategory.class));
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected( AdapterView<?> parent ) {
+
+            }
+        });
 
 
         TextView tv= (TextView) findViewById(R.id.title);
@@ -132,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                 if(mod == 0){
                     mLayoutManager = new GridLayoutManager(getApplicationContext(),10);
                     myRecyclerView.setLayoutManager(mLayoutManager);
-                    mAdapter = new MovieAdapter(getApplicationContext(),movieList1);
+                    mAdapter = new MovieAdapter(getApplicationContext(),movieList1, listName);
                     myRecyclerView.setAdapter(mAdapter);
 
 
@@ -165,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
                 if(mod == 0){
                     mLayoutManager = new GridLayoutManager(getApplicationContext(),10);
                     myRecyclerView.setLayoutManager(mLayoutManager);
-                    mAdapter = new MovieAdapter(getApplicationContext(),movieList1);
+                    mAdapter = new MovieAdapter(getApplicationContext(),movieList1, listName);
                     myRecyclerView.setAdapter(mAdapter);
 
 
@@ -187,28 +225,40 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        myRef.addValueEventListener(new ValueEventListener() {
+
+
+        mAdapter = new MovieAdapter(getApplicationContext(),movieList1,listName);
+
+
+        myRecyclerView.setLayoutManager(mLayoutManager);
+        myRecyclerView.setAdapter(mAdapter);
+
+
+        System.out.println("maxnumber: "+  maxNumber);
+
+
+
+    }
+
+
+    public void changeDatabase(String childName ){
+        DatabaseReference db  = myRef.child(childName);
+
+        listName = childName;
+
+        db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 movieList1.clear();
-                movieListBlue.clear();
+
                 maxNumber = (int) snapshot.getChildrenCount();
                 for( DataSnapshot dataSnapshot1: snapshot.getChildren() )
                 {
                     MovieItem n = dataSnapshot1.getValue( MovieItem.class );
-                    //System.out.println(n.getName()+" hakan ");
+                    System.out.println(n.getName()+" hakan ");
                     movieList1.add( n );
-                    if(n.getRevealed() == false){
-                        movieListBlue.add(n);
-
-                    }
-
-
-
                 }
 
-
-                maxNumber=movieListBlue.size();
                 System.out.println("Blue :" + maxNumber);
                 myRecyclerView.getAdapter().notifyDataSetChanged();
 
@@ -219,38 +269,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        mAdapter = new MovieAdapter(getApplicationContext(),movieList1);
-
-
+        mAdapter = new MovieAdapter(getApplicationContext(),movieList1,listName);
         myRecyclerView.setLayoutManager(mLayoutManager);
         myRecyclerView.setAdapter(mAdapter);
-
-
-        System.out.println("maxnumber: "+  maxNumber);
-
-        spinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected( AdapterView<?> parent, View view, int position, long id ) {
-
-                title.setText(spinner.getSelectedItem().toString()+" (30" +"/"+"100)");
-
-                if(position == 6){
-
-
-                    startActivity(new Intent(getApplicationContext(),NewCategory.class));
-                }
-
-
-            }
-
-            @Override
-            public void onNothingSelected( AdapterView<?> parent ) {
-
-            }
-        });
     }
-
 
 
     }

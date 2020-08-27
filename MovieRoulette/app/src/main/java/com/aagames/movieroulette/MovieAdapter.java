@@ -27,13 +27,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     Context context;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Imdb");
+    DatabaseReference myRef;
 
 
-    public MovieAdapter(Context context, ArrayList<MovieItem> movieList){
+    public MovieAdapter(Context context, ArrayList<MovieItem> movieList, String child){
 
         this.context=context;
         mMovieList= movieList;
+        myRef = database.getReference("movielists").child(child);
 
     }
 
