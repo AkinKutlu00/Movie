@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "260352236135-gj4g55rt8desue6l3hiebvhgb10g0j26.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aagames.movieroulette",
+            "certificate_hash": "ce11816504ce731ffaf8c86b67ef3ef2f37b98d1"
+          }
+        },
+        {
           "client_id": "260352236135-rnm6d1golpg2is1jijgntvr2c59hpk8h.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     mLayoutManager = new GridLayoutManager(getApplicationContext(),1);
                     myRecyclerView.setLayoutManager(mLayoutManager);
-                    mAdapter = new MovieAdapterPlus(getApplicationContext(),movieList1);
+                    mAdapter = new MovieAdapterBig(getApplicationContext(),movieList1);
                     myRecyclerView.setAdapter(mAdapter);
 
                 }
@@ -176,10 +176,10 @@ public class MainActivity extends AppCompatActivity {
                     myRecyclerView.setAdapter(mAdapter);
 
 
-                }else{
+                }else if(mod == 2){
                     mLayoutManager = new GridLayoutManager(getApplicationContext(),1);
                     myRecyclerView.setLayoutManager(mLayoutManager);
-                    mAdapter = new MovieAdapterPlus(getApplicationContext(),movieList1);
+                    mAdapter = new MovieAdapterBig(getApplicationContext(),movieList1);
                     myRecyclerView.setAdapter(mAdapter);
 
                 }

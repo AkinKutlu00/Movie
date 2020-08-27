@@ -11,22 +11,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/movieImage"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_launcher_background" />
 
-        <TextView
-            android:id="@+id/nameMovie"
+
+        <CheckBox
+
+            android:text="Name of Movie Number 1"
+            android:id="@+id/checkBox"
+            android:background="@color/cardview_light_background"
             android:layout_width="match_parent"
             android:layout_height="110dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Name of Movie Number 1"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+
+            />
+
+        <ImageView
+            android:id="@+id/imageView"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/big" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
