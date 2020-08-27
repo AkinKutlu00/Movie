@@ -46,8 +46,8 @@ public class Register extends AppCompatActivity {
 
         moviePath.add("imdb");
         moviePath.add("Rotten Tomatoes");
-
-
+        moviePath.add("Mubi");
+        
 
 
         username = findViewById(R.id.userEt);

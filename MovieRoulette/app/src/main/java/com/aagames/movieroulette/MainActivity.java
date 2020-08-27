@@ -47,8 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     //silinecek
     Button button;
-
-    int maxNumber;
+    int maxNumber ;//= 100;
     int spinnerNo;
     int mod;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -62,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mod=0;
         listName = "imdb";
+        final ArrayList<MovieItem> movieList3 = new ArrayList<>();
+
 
         //silinecek
         final Intent intent = new Intent(this, Login.class);
@@ -123,6 +124,10 @@ public class MainActivity extends AppCompatActivity {
                     changeDatabase("Rotten Tomatoes");
 
 
+                }else if (position == 2){
+
+                    changeDatabase("Mubi");
+
                 }else if(position == 6){
 
 
@@ -156,6 +161,77 @@ public class MainActivity extends AppCompatActivity {
         plus = (Button) findViewById(R.id.plus);
         minus = (Button) findViewById(R.id.minus);
 
+        random = findViewById(R.id.randomButton);
+        random.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                int randomNumber;
+               do{
+
+
+                   randomNumber = new Random().nextInt(movieList1.size());
+                   System.out.println("Random"+randomNumber+"-----"+movieList1.size());
+               }while (movieList1.get(randomNumber).getRevealed() );
+
+                Toast.makeText(getApplicationContext()," "+ randomNumber,Toast.LENGTH_SHORT).show();
+
+
+
+                //movieList1.get(randomNumber).setRevealed(true);
+                //Toast.makeText(getApplicationContext()," "+ randomNumber,Toast.LENGTH_SHORT).show();
+
+                final Dialog builder=new Dialog(v.getContext());
+                View view= LayoutInflater.from(MainActivity.this).inflate(R.layout.moviepopup,null);
+
+                TextView tvname=(TextView)view.findViewById(R.id.name);
+                tvname.setText(movieList1.get(randomNumber).getName());
+
+                TextView tvfoto=(TextView)view.findViewById(R.id.foto);
+                tvfoto.setText(movieList1.get(randomNumber).getImageCode());
+
+                Button close = (Button) view.findViewById(R.id.close);
+
+
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        builder.dismiss();
+
+
+                    }
+                });
+
+
+                Button yes = (Button) view.findViewById(R.id.yes);
+                Button no = (Button) view.findViewById(R.id.no);
+
+                final int finalRandomNumber = randomNumber;
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //movieList1.get(randomNumber).setRevealed(true);
+                        myRef.child(finalRandomNumber +"").child("revealed").setValue(true);
+
+                        builder.dismiss();
+
+                    }
+                });
+
+
+                no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        movieList1.get(finalRandomNumber).setRevealed(false);
+                        builder.dismiss();
+                    }
+                });
+                builder.setContentView(view);
+
+                builder.show();
+
+            }
+        });
 
 
 
