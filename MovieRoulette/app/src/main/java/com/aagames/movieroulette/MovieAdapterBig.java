@@ -28,13 +28,14 @@ public class MovieAdapterBig extends RecyclerView.Adapter<MovieAdapterBig.MovieV
 
     Context context;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Imdb");
+    DatabaseReference myRef;
 
 
     public MovieAdapterBig(Context context, ArrayList<MovieItem> movieList, String child){
 
         this.context=context;
         mMovieList= movieList;
+        myRef = database.getReference("movielists").child(child);
 
     }
 

@@ -30,10 +30,11 @@ public class MovieAdapterPlus extends RecyclerView.Adapter<MovieAdapterPlus.Movi
     DatabaseReference myRef = database.getReference("Imdb");
 
 
-    public MovieAdapterPlus(Context context, ArrayList<MovieItem> movieList){
+    public MovieAdapterPlus(Context context, ArrayList<MovieItem> movieList, String child){
 
         this.context=context;
         mMovieList= movieList;
+        myRef = database.getReference("movielists").child(child);
 
     }
 
