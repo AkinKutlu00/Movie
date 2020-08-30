@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mod=0;
-        listName = "imdb";
+        listName = "0";
         final ArrayList<MovieItem> movieList2 = new ArrayList<>();
 
         auth = FirebaseAuth.getInstance();
