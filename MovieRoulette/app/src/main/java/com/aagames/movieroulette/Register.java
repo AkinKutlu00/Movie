@@ -73,10 +73,10 @@ public class Register extends AppCompatActivity {
                 String confirmPassword = confirm.getText().toString();
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("movielists").child("imdb");
+
                 final DatabaseReference myRef2 = database.getReference("movielists").child("Rotten Tomatoes");
 
-
+                DatabaseReference myRef = database.getReference("movielists").child("imdb");
 
                     myRef = database.getReference("movielists");
 
@@ -88,7 +88,7 @@ public class Register extends AppCompatActivity {
                             for( DataSnapshot dataSnapshot1: snapshot.getChildren() )
                             {
                                 ArrayList<MovieItem> n = (ArrayList<MovieItem>) dataSnapshot1.getValue( Object.class );
-                                System.out.println("bum"+n);
+                               // System.out.println("bum"+n);
 
                                 movieLists.add( n );
 

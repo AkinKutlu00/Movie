@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,8 +52,12 @@ public class MainActivity extends AppCompatActivity {
     int spinnerNo;
     int mod;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final DatabaseReference myRef = database.getReference("movielists");
+    final DatabaseReference myRef2 = database.getReference("movielists");
     final ArrayList<MovieItem> movieList1 = new ArrayList<>();
+    private FirebaseAuth auth;
+    DatabaseReference myRef;
+    final ArrayList<Object> movieLists = new ArrayList<>();
+
 
 
     @Override
@@ -63,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
         listName = "imdb";
         final ArrayList<MovieItem> movieList2 = new ArrayList<>();
 
+        auth = FirebaseAuth.getInstance();
+
+        String id = auth.getUid();
+        myRef = FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists");
 
         //silinecek
         final Intent intent = new Intent(this, Login.class);
@@ -90,6 +99,38 @@ public class MainActivity extends AppCompatActivity {
        // final ArrayList<MovieItem> movieList2 = new ArrayList<>();
         final ArrayList<MovieItem> movieListBlue = new ArrayList<>();
 
+        if(myRef.child("0")== null){
+            DatabaseReference myRef = database.getReference("movielists").child("imdb");
+
+            myRef = database.getReference("movielists");
+
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    //movieLists.clear();
+
+                    for( DataSnapshot dataSnapshot1: snapshot.getChildren() )
+                    {
+                        ArrayList<MovieItem> n = (ArrayList<MovieItem>) dataSnapshot1.getValue( Object.class );
+                        // System.out.println("bum"+n);
+
+                        movieLists.add( n );
+
+                    }
+
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
+            System.out.println("Main");
+            FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists").setValue(movieLists);
+        }
 
 
 
@@ -116,17 +157,17 @@ public class MainActivity extends AppCompatActivity {
                 title.setText(spinner.getSelectedItem().toString()+" (30" +"/"+"100)");
 
                 if(position == 0 ){
-                    changeDatabase("imdb");
+                    changeDatabase("2");
 
 
                 }else if(position == 1){
 
-                    changeDatabase("Rotten Tomatoes");
+                    changeDatabase("1");
 
 
                 }else if (position == 2){
 
-                    changeDatabase("Mubi");
+                    changeDatabase("0");
 
                 }else if(position == 6){
 
