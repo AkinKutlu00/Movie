@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mod=0;
         listName = "imdb";
-        final ArrayList<MovieItem> movieList3 = new ArrayList<>();
+        final ArrayList<MovieItem> movieList2 = new ArrayList<>();
 
 
         //silinecek
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         spinner = findViewById(R.id.spinner);
 
 
-        final ArrayList<MovieItem> movieList2 = new ArrayList<>();
+       // final ArrayList<MovieItem> movieList2 = new ArrayList<>();
         final ArrayList<MovieItem> movieListBlue = new ArrayList<>();
 
 

@@ -77,22 +77,24 @@ public class Register extends AppCompatActivity {
                 final DatabaseReference myRef2 = database.getReference("movielists").child("Rotten Tomatoes");
 
 
-                for(int i=0; moviePath.size()>i; i++){
-                    myRef = database.getReference("movielists").child(moviePath.get(i));
+
+                    myRef = database.getReference("movielists");
 
                     myRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            movieList1.clear();
+                            //movieLists.clear();
 
                             for( DataSnapshot dataSnapshot1: snapshot.getChildren() )
                             {
-                                MovieItem n = dataSnapshot1.getValue( MovieItem.class );
-                                movieList1.add( n );
+                                ArrayList<MovieItem> n = (ArrayList<MovieItem>) dataSnapshot1.getValue( Object.class );
+                                System.out.println("bum"+n);
+
+                                movieLists.add( n );
 
                             }
 
-                            movieLists.add(movieList1);
+
                         }
 
                         @Override
@@ -102,15 +104,12 @@ public class Register extends AppCompatActivity {
                     });
 
 
-
-
-                }
-
-
                 // displaying progressbar
 
                 register.setVisibility( View.INVISIBLE );
                 auth = FirebaseAuth.getInstance();
+
+
 
 
 
@@ -151,11 +150,7 @@ public class Register extends AppCompatActivity {
 
                                    // FirebaseDatabase.getInstance().getReference().child("movielists").child("imdb").setValue(movieList1);
 
-                                    for(int i=0;i<moviePath.size();i++){
-                                        FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists").child(moviePath.get(i)).setValue(movieLists.get(i));
-
-                                    }
-
+                                    FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists").setValue(movieLists);
 
 
                                     // making disapppered progress bar
