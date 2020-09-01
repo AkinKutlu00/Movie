@@ -61,6 +61,36 @@ public class Register extends AppCompatActivity {
 
         final ArrayList<MovieItem> movieList1 = new ArrayList<>();
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        final DatabaseReference myRef2 = database.getReference("movielists").child("Rotten Tomatoes");
+
+        DatabaseReference myRef = database.getReference("movielists").child("imdb");
+
+        myRef = database.getReference("movielists");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //movieLists.clear();
+
+                for( DataSnapshot dataSnapshot1: snapshot.getChildren() )
+                {
+                    ArrayList<MovieItem> n = (ArrayList<MovieItem>) dataSnapshot1.getValue( Object.class );
+                    // System.out.println("bum"+n);
+
+                    movieLists.add( n );
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,47 +102,15 @@ public class Register extends AppCompatActivity {
                 String passwordString = password.getText().toString();
                 String confirmPassword = confirm.getText().toString();
 
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-                final DatabaseReference myRef2 = database.getReference("movielists").child("Rotten Tomatoes");
-
-                DatabaseReference myRef = database.getReference("movielists").child("imdb");
-
-                    myRef = database.getReference("movielists");
-
-                    myRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            //movieLists.clear();
-
-                            for( DataSnapshot dataSnapshot1: snapshot.getChildren() )
-                            {
-                                ArrayList<MovieItem> n = (ArrayList<MovieItem>) dataSnapshot1.getValue( Object.class );
-                               // System.out.println("bum"+n);
-
-                                movieLists.add( n );
-
-                            }
 
 
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
 
 
                 // displaying progressbar
 
                 register.setVisibility( View.INVISIBLE );
                 auth = FirebaseAuth.getInstance();
-
-
-
-
-
 
 
 

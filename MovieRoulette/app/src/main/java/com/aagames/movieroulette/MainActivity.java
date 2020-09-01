@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        String id = auth.getUid();
+        final String id = auth.getUid();
         myRef = FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists");
 
         //silinecek
@@ -100,39 +100,6 @@ public class MainActivity extends AppCompatActivity {
        // final ArrayList<MovieItem> movieList2 = new ArrayList<>();
         final ArrayList<MovieItem> movieListBlue = new ArrayList<>();
 
-        if(myRef.child("0")== null){
-            DatabaseReference myRef = database.getReference("movielists").child("imdb");
-
-            myRef = database.getReference("movielists");
-
-            myRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    //movieLists.clear();
-
-                    for( DataSnapshot dataSnapshot1: snapshot.getChildren() )
-                    {
-                        ArrayList<MovieItem> n = (ArrayList<MovieItem>) dataSnapshot1.getValue( Object.class );
-                        // System.out.println("bum"+n);
-
-                        movieLists.add( n );
-
-                    }
-
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-
-            System.out.println("Main");
-            FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists").setValue(movieLists);
-        }
-
 
 
         DatabaseReference imdb = database.getReference("movielists").child("imdb");
@@ -142,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
         //movieList1.get(0).setRevealed(true);
 
         filter = new ArrayList<>();
+
+
 
         filter.add("Imdb");
         filter.add("Rotten Tomatoes");
@@ -209,6 +178,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int randomNumber;
+
+
                do{
 
 
