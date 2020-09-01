@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                    System.out.println("Random"+randomNumber+"-----"+movieList1.size());
                }while (movieList1.get(randomNumber).getRevealed() );
 
-                Toast.makeText(getApplicationContext()," "+ randomNumber,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext()," "+ randomNumber,Toast.LENGTH_SHORT).show();
 
 
 
