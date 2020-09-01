@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mod=0;
-        listName = "0";
+        listName = "1";
         final ArrayList<MovieItem> movieList2 = new ArrayList<>();
 
         auth = FirebaseAuth.getInstance();
@@ -110,15 +110,14 @@ public class MainActivity extends AppCompatActivity {
 
         filter = new ArrayList<>();
 
-
-
-        filter.add("Imdb");
-        filter.add("Rotten Tomatoes");
+        filter.add("New Category");
         filter.add("Mubi");
+        filter.add("Rotten Tomatoes");
+        filter.add("Imdb");
         filter.add("Comedy");
         filter.add("Science Fiction");
         filter.add("Documentary");
-        filter.add("New Category");
+
 
         spinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
             @Override
@@ -126,20 +125,9 @@ public class MainActivity extends AppCompatActivity {
 
                 title.setText(spinner.getSelectedItem().toString()+" (30" +"/"+"100)");
 
-                if(position == 0 ){
-                    changeDatabase("2");
+                changeDatabase(position-1+"");
 
-
-                }else if(position == 1){
-
-                    changeDatabase("1");
-
-
-                }else if (position == 2){
-
-                    changeDatabase("0");
-
-                }else if(position == 6){
+                 if(position == 0){
 
 
                     startActivity(new Intent(getApplicationContext(),NewCategory.class));
@@ -162,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
 
         spinner.setAdapter( adapter );
-        spinner.setSelection(0);
+        spinner.setSelection(1);
 
 
         myRecyclerView = findViewById(R.id.myRecyclerView);
