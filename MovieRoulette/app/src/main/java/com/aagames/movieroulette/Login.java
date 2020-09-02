@@ -23,6 +23,7 @@ public class Login extends AppCompatActivity {
     Button signIn;
     Button register;
     FirebaseAuth auth;
+    Button forget;
 
 
 
@@ -37,6 +38,16 @@ public class Login extends AppCompatActivity {
         signIn = (Button) findViewById(R.id.signbtn);
         register = (Button) findViewById(R.id.registerbtn);
         auth = FirebaseAuth.getInstance();
+        forget = (Button) findViewById(R.id.forgetbtn);
+
+        forget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity( new Intent(getApplicationContext(), Categories.class) );
+                finish();
+            }
+        });
+
 
         if ( auth.getCurrentUser() != null )
         {
