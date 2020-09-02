@@ -43,8 +43,7 @@ public class Login extends AppCompatActivity {
         forget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity( new Intent(getApplicationContext(), Categories.class) );
-                finish();
+
             }
         });
 

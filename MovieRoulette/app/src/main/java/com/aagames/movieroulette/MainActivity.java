@@ -88,6 +88,15 @@ public class MainActivity extends AppCompatActivity {
 
        //silin sonu
 
+        Button cat = (Button) findViewById(R.id.cat);
+        cat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity( new Intent(getApplicationContext(), Categories.class) );
+                finish();
+            }
+        });
+
 
         title = (TextView) findViewById(R.id.title);
 
