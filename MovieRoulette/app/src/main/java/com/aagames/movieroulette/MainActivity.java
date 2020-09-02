@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     Spinner spinner;
     List< String > filter;
     TextView title;
+    ArrayList<MovieList> lists;
 
     String listName;
 
@@ -52,10 +53,14 @@ public class MainActivity extends AppCompatActivity {
     int spinnerNo;
     int mod;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final DatabaseReference myRef2 = database.getReference("movielists");
+    // final DatabaseReference myRef2 = database.getReference("movielists");
     final ArrayList<MovieItem> movieList1 = new ArrayList<>();
     private FirebaseAuth auth;
+
+    MovieList movies = new MovieList( "Mubi" );
+
     DatabaseReference myRef;
+    final DatabaseReference myRef5 = FirebaseDatabase.getInstance().getReference().child( "ListOfMovies" ).child( "mubi" );
     final ArrayList<Object> movieLists = new ArrayList<>();
 
 
@@ -86,14 +91,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-       //silin sonu
+        //silin sonu
 
         Button cat = (Button) findViewById(R.id.cat);
         cat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity( new Intent(getApplicationContext(), Categories.class) );
-                finish();
             }
         });
 
@@ -106,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         spinner = findViewById(R.id.spinner);
 
 
-       // final ArrayList<MovieItem> movieList2 = new ArrayList<>();
+        // final ArrayList<MovieItem> movieList2 = new ArrayList<>();
         final ArrayList<MovieItem> movieListBlue = new ArrayList<>();
 
 
@@ -119,13 +123,41 @@ public class MainActivity extends AppCompatActivity {
 
         filter = new ArrayList<>();
 
-        filter.add("New Category");
-        filter.add("Mubi");
-        filter.add("Rotten Tomatoes");
-        filter.add("Imdb");
-        filter.add("Comedy");
-        filter.add("Science Fiction");
-        filter.add("Documentary");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                filter.add( "New Category" );
+
+                lists = new ArrayList<MovieList>();
+                for( DataSnapshot shot: snapshot.getChildren() )
+                {
+                    MovieList list =  ( MovieList ) shot.getValue( MovieList.class );
+
+                    lists.add( list );
+                    filter.add( list.getName() );
+                }
+
+            }
+
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        //filter.add( "New Category" );
+
+        //  filter.add("New Category");
+        //filter.add("Mubi");
+        //filter.add("Rotten Tomatoes");
+        //filter.add("Imdb");
+        //filter.add("Comedy");
+        //filter.add("Science Fiction");
+        //filter.add("Documentary");
 
 
         spinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
@@ -136,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
                 changeDatabase(position-1+"");
 
-                 if(position == 0){
+                if(position == 0){
 
 
                     startActivity(new Intent(getApplicationContext(),NewCategory.class));
@@ -177,12 +209,12 @@ public class MainActivity extends AppCompatActivity {
                 int randomNumber;
 
 
-               do{
+                do{
 
 
-                   randomNumber = new Random().nextInt(movieList1.size());
-                   System.out.println("Random"+randomNumber+"-----"+movieList1.size());
-               }while (movieList1.get(randomNumber).getRevealed() );
+                    randomNumber = new Random().nextInt(movieList1.size());
+                    System.out.println("Random"+randomNumber+"-----"+movieList1.size());
+                }while (movieList1.get(randomNumber).getRevealed() );
 
                 //Toast.makeText(getApplicationContext()," "+ randomNumber,Toast.LENGTH_SHORT).show();
 
@@ -328,6 +360,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void changeDatabase(String childName ){
+
+        System.out.println( "heyyy" );
         DatabaseReference db  = myRef.child(childName);
 
         listName = childName;
@@ -337,11 +371,13 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 movieList1.clear();
 
-                maxNumber = (int) snapshot.getChildrenCount();
-                for( DataSnapshot dataSnapshot1: snapshot.getChildren() )
+                // listName = snapshot.child("name").getValue( String.class );
+
+                maxNumber = ( int ) snapshot.getChildrenCount();
+                for( DataSnapshot dataSnapshot1: snapshot.child( "movies" ).getChildren() )
                 {
                     MovieItem n = dataSnapshot1.getValue( MovieItem.class );
-                    //System.out.println(n.getName()+" hakan ");
+                    System.out.println(n.getName()+ n.getName());
                     movieList1.add( n );
                 }
 
@@ -363,7 +399,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    }
+}
 
 
 

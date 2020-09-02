@@ -47,6 +47,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MovieV
 
         holder.categoryNameTv.setText(categories.get(position));
 
+        holder.categoryImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 
