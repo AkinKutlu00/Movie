@@ -57,7 +57,7 @@ public class Register extends AppCompatActivity {
 
         register = findViewById(R.id.register);
 
-        final ArrayList<Object> movieLists = new ArrayList<>();
+        final ArrayList<MovieList> movieLists = new ArrayList<>();
 
         final ArrayList<MovieItem> movieList1 = new ArrayList<>();
 
@@ -67,7 +67,7 @@ public class Register extends AppCompatActivity {
 
         DatabaseReference myRef = database.getReference("movielists").child("imdb");
 
-        myRef = database.getReference("movielists");
+        myRef = database.getReference("ListOfMovies");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -76,8 +76,8 @@ public class Register extends AppCompatActivity {
 
                 for( DataSnapshot dataSnapshot1: snapshot.getChildren() )
                 {
-                    ArrayList<MovieItem> n = (ArrayList<MovieItem>) dataSnapshot1.getValue( Object.class );
-                    // System.out.println("bum"+n);
+                    MovieList n = ( MovieList ) dataSnapshot1.getValue( MovieList.class );
+                     //System.out.println("bum "+ n.getName());
 
                     movieLists.add( n );
 
