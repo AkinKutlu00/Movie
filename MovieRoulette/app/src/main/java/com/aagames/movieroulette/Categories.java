@@ -71,7 +71,7 @@ public class Categories extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                categories.clear();
                // lists = new ArrayList<MovieList>();
                 for( DataSnapshot shot: snapshot.getChildren() )
                 {
