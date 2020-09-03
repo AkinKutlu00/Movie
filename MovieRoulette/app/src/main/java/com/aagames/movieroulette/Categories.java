@@ -27,6 +27,7 @@ public class Categories extends AppCompatActivity {
     private FirebaseAuth auth;
 
     Button logOut;
+    Button newCategory;
 
     //ArrayList<MovieList> lists;
 
@@ -51,6 +52,18 @@ public class Categories extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Login.class));
                 auth.signOut();
+
+            }
+        });
+
+
+        newCategory = (Button) findViewById(R.id.newcat);
+
+        newCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), NewCategory.class));
+
 
             }
         });

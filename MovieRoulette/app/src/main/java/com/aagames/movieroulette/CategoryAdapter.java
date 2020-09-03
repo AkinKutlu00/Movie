@@ -1,25 +1,16 @@
 package com.aagames.movieroulette;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -38,7 +29,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MovieV
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.category, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_card_view, parent, false);
         MovieViewHolder mvh = new MovieViewHolder(v);
         return mvh;
     }

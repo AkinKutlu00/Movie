@@ -14,7 +14,7 @@
     android:orientation="horizontal">
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/catNameEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="20"
@@ -23,11 +23,11 @@
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/createCat"
         android:layout_weight="100"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save" />
+        android:text="Create" />
 </LinearLayout>
 
     <LinearLayout
@@ -45,7 +45,7 @@
             android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/add"
             android:layout_weight="100"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

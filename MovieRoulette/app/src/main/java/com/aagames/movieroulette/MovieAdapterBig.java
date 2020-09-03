@@ -38,7 +38,7 @@ public class MovieAdapterBig extends RecyclerView.Adapter<MovieAdapterBig.MovieV
         String id = auth.getUid();
         this.context=context;
         mMovieList= movieList;
-        myRef = database.getReference("users").child(id).child("movielists").child(child);
+        myRef = database.getReference("users").child(id).child("movielists").child(child).child("movies");
 
     }
 

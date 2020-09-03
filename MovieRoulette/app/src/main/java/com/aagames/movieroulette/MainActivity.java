@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,8 +53,11 @@ public class MainActivity extends AppCompatActivity {
     int maxNumber ;
     int mod;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final ArrayList<MovieItem> movieList1 = new ArrayList<>();
+    ArrayList<MovieItem> movieList1 = new ArrayList<>();
     private FirebaseAuth auth;
+
+    MovieList currentList;
+
 
     MovieList movies = new MovieList( "Mubi" );
 
@@ -71,16 +75,83 @@ public class MainActivity extends AppCompatActivity {
         listName = "1";
         final ArrayList<MovieItem> movieList2 = new ArrayList<>();
 
+        TextView tv= (TextView) findViewById(R.id.title);
+
         auth = FirebaseAuth.getInstance();
+        title = (TextView) findViewById(R.id.title);
+
+        final String titleName = getIntent().getStringExtra( "categoryname" );
+        title.setText(titleName);
+
+        final ArrayList<MovieList> allList = new ArrayList<>();
 
 
-        String titleName = getIntent().getStringExtra( "categoryname" );
 
         final String id = auth.getUid();
         myRef = FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists");
 
         //??????????????????????
 
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                Iterable< DataSnapshot > cList = snapshot.getChildren();
+
+                allList.clear();
+                for ( DataSnapshot list : cList )
+                {
+                    MovieList thelist = list.getValue( MovieList.class );
+                    allList.add( thelist );
+                }
+
+
+                if( allList.size() != 0 ) {
+                    for ( int i = 0; i < allList.size(); i++ ) {
+
+                        // When found the note set texts of text and title EditText to the name and the text of note
+                        //      Change their sizes and styles according to the information taken from Firebase
+                        if( allList.get( i ).getName().equals( titleName ) )
+                        {
+                            title.setText( ( allList.get( i ) ).getName() );
+
+                            currentList = allList.get( i );
+                            movieList1 = allList.get( i ).movies;
+                            listName = ""+i;
+                            if(mod == 0){
+                                mLayoutManager = new GridLayoutManager(getApplicationContext(),10);
+                                myRecyclerView.setLayoutManager(mLayoutManager);
+                                mAdapter = new MovieAdapter(getApplicationContext(),movieList1, listName);
+                                myRecyclerView.setAdapter(mAdapter);
+
+
+                            }else if(mod == 1){
+                                mLayoutManager = new GridLayoutManager(getApplicationContext(),3);
+                                myRecyclerView.setLayoutManager(mLayoutManager);
+                                mAdapter = new MovieAdapterPlus(getApplicationContext(),movieList1,listName);
+                                myRecyclerView.setAdapter(mAdapter);
+
+
+                            }else{
+                                mLayoutManager = new GridLayoutManager(getApplicationContext(),1);
+                                myRecyclerView.setLayoutManager(mLayoutManager);
+                                mAdapter = new MovieAdapterBig(getApplicationContext(),movieList1,listName);
+                                myRecyclerView.setAdapter(mAdapter);
+
+                            }
+
+
+
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
         //silinecek
@@ -107,16 +178,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        title = (TextView) findViewById(R.id.title);
 
-
-        title.setText(titleName);
 
         DatabaseReference imdb = database.getReference("movielists").child("imdb");
-
-
-        TextView tv= (TextView) findViewById(R.id.title);
-
 
 
         myRecyclerView = findViewById(R.id.myRecyclerView);
@@ -178,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //movieList1.get(randomNumber).setRevealed(true);
-                        myRef.child(listName).child(finalRandomNumber +"").child("revealed").setValue(true);
+                        myRef.child(listName).child("movies").child(finalRandomNumber +"").child("revealed").setValue(true);
 
                         builder.dismiss();
 
@@ -189,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
                 no.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        myRef.child(listName).child(finalRandomNumber +"").child("revealed").setValue(false);
+                        myRef.child(listName).child("movies").child(finalRandomNumber +"").child("revealed").setValue(false);
                         builder.dismiss();
                     }
                 });
