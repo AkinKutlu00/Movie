@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +26,8 @@ public class Categories extends AppCompatActivity {
     ArrayList<String> categories;
     private FirebaseAuth auth;
 
+    Button logOut;
+
     //ArrayList<MovieList> lists;
 
 
@@ -39,6 +44,17 @@ public class Categories extends AppCompatActivity {
 
         mAdapter = new CategoryAdapter(getApplicationContext(),categories);
 
+        logOut = (Button) findViewById(R.id.logoutbtn);
+
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Login.class));
+                auth.signOut();
+
+            }
+        });
+
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -51,7 +67,6 @@ public class Categories extends AppCompatActivity {
                     //lists.add( list );
                     categories.add( list.getName() );
                     mAdapter.notifyDataSetChanged();
-                    System.out.println(  "heyy " + categories.get( 0 ));
                 }
 
             }

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,11 +46,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MovieV
     @Override
     public void onBindViewHolder(@NonNull final MovieViewHolder holder, final int position) {
 
-        holder.categoryNameTv.setText(categories.get(position));
+        holder.categoryNameBtn.setText(categories.get(position));
 
-        holder.categoryImageView.setOnClickListener(new View.OnClickListener() {
+        holder.categoryNameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent( context, MainActivity.class );
+
+                intent.putExtra( "categoryname", categories.get(position));
+                intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+                context.startActivity( intent );
+
 
             }
         });
@@ -63,6 +70,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MovieV
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder{
 
+        public Button categoryNameBtn;
         public TextView categoryNameTv;
         public ImageView categoryImageView;
 
@@ -70,6 +78,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MovieV
             super(itemView);
             categoryNameTv = itemView.findViewById(R.id.nameMovie);
             categoryImageView = itemView.findViewById(R.id.movieImage);
+            categoryNameBtn = itemView.findViewById(R.id.open);
 
         }
     }

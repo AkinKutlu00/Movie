@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private Button random;
     Button plus;
     Button minus;
-    Spinner spinner;
+
     List< String > filter;
     TextView title;
     ArrayList<MovieList> lists;
@@ -49,11 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
     //silinecek
     Button button;
-    int maxNumber ;//= 100;
-    int spinnerNo;
+    int maxNumber ;
     int mod;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    // final DatabaseReference myRef2 = database.getReference("movielists");
     final ArrayList<MovieItem> movieList1 = new ArrayList<>();
     private FirebaseAuth auth;
 
@@ -75,8 +73,15 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+
+        String titleName = getIntent().getStringExtra( "categoryname" );
+
         final String id = auth.getUid();
         myRef = FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists");
+
+        //??????????????????????
+
+
 
         //silinecek
         final Intent intent = new Intent(this, Login.class);
@@ -105,93 +110,13 @@ public class MainActivity extends AppCompatActivity {
         title = (TextView) findViewById(R.id.title);
 
 
-        title.setText("Mubi Top 100");
-
-        spinner = findViewById(R.id.spinner);
-
-
-        // final ArrayList<MovieItem> movieList2 = new ArrayList<>();
-        final ArrayList<MovieItem> movieListBlue = new ArrayList<>();
-
-
+        title.setText(titleName);
 
         DatabaseReference imdb = database.getReference("movielists").child("imdb");
-
-        //FirebaseDatabase.getInstance().getReference().child("movielists").child("Rotten Tomatoes").setValue(movieList2);
-        //myRef.child("0").child("revealed").setValue(true);
-        //movieList1.get(0).setRevealed(true);
-
-        filter = new ArrayList<>();
-
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                filter.add( "New Category" );
-
-                lists = new ArrayList<MovieList>();
-                for( DataSnapshot shot: snapshot.getChildren() )
-                {
-                    MovieList list =  ( MovieList ) shot.getValue( MovieList.class );
-
-                    lists.add( list );
-                    filter.add( list.getName() );
-                }
-
-            }
-
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        //filter.add( "New Category" );
-
-        //  filter.add("New Category");
-        //filter.add("Mubi");
-        //filter.add("Rotten Tomatoes");
-        //filter.add("Imdb");
-        //filter.add("Comedy");
-        //filter.add("Science Fiction");
-        //filter.add("Documentary");
-
-
-        spinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected( AdapterView<?> parent, View view, int position, long id ) {
-
-                title.setText(spinner.getSelectedItem().toString()+" (30" +"/"+"100)");
-
-                changeDatabase(position-1+"");
-
-                if(position == 0){
-
-
-                    startActivity(new Intent(getApplicationContext(),NewCategory.class));
-                }
-
-
-            }
-
-            @Override
-            public void onNothingSelected( AdapterView<?> parent ) {
-
-            }
-        });
 
 
         TextView tv= (TextView) findViewById(R.id.title);
 
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>( this, android.R.layout.simple_spinner_item, filter );
-        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
-
-        spinner.setAdapter( adapter );
-        spinner.setSelection(1);
 
 
         myRecyclerView = findViewById(R.id.myRecyclerView);
@@ -355,48 +280,9 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("maxnumber: "+  maxNumber);
 
 
-
     }
 
 
-    public void changeDatabase(String childName ){
-
-        System.out.println( "heyyy" );
-        DatabaseReference db  = myRef.child(childName);
-
-        listName = childName;
-
-        db.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                movieList1.clear();
-
-                // listName = snapshot.child("name").getValue( String.class );
-
-                maxNumber = ( int ) snapshot.getChildrenCount();
-                for( DataSnapshot dataSnapshot1: snapshot.child( "movies" ).getChildren() )
-                {
-                    MovieItem n = dataSnapshot1.getValue( MovieItem.class );
-                    System.out.println(n.getName()+ n.getName());
-                    movieList1.add( n );
-                }
-
-                System.out.println("Blue :" + maxNumber);
-                myRecyclerView.getAdapter().notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        mod =0;
-        mLayoutManager = new GridLayoutManager(getApplicationContext(),10);
-        mAdapter = new MovieAdapter(getApplicationContext(),movieList1,listName);
-        myRecyclerView.setLayoutManager(mLayoutManager);
-        myRecyclerView.setAdapter(mAdapter);
-    }
 
 
 }

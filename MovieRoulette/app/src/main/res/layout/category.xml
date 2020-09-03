@@ -31,6 +31,12 @@
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/open"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Open" />
+
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

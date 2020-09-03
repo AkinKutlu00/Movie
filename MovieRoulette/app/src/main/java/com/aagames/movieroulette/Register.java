@@ -155,7 +155,7 @@ public class Register extends AppCompatActivity {
                                     register.setVisibility( View.VISIBLE );
 
                                     // finishing activity and starting main activity
-                                    startActivity(new Intent( getApplicationContext(), MainActivity.class ));
+                                    startActivity(new Intent( getApplicationContext(), Categories.class ));
                                     finish();
                                 }
                                 else
