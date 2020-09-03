@@ -103,10 +103,6 @@ public class Register extends AppCompatActivity {
                 String confirmPassword = confirm.getText().toString();
 
 
-
-
-
-
                 // displaying progressbar
 
                 register.setVisibility( View.INVISIBLE );

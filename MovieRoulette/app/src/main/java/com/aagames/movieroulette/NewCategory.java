@@ -2,6 +2,7 @@ package com.aagames.movieroulette;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class NewCategory extends AppCompatActivity {
 
     Button create;
@@ -26,6 +29,8 @@ public class NewCategory extends AppCompatActivity {
     FirebaseAuth auth;
     int next;
     Button add;
+    MovieList ml;
+    int currentPosition;
 
 
     @Override
@@ -35,19 +40,63 @@ public class NewCategory extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         id = auth.getUid();
-
+        final DatabaseReference listRef =FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child( "movielists" );
         create = (Button) findViewById(R.id.createCat);
         catNameEt = (EditText) findViewById(R.id.catNameEt);
         movieNameEt = (EditText) findViewById(R.id.movieNameEt);
 
+
+        final ArrayList<MovieList> allList = new ArrayList<>();
+        
         add = (Button) findViewById(R.id.add);
         add.setVisibility(View.INVISIBLE);
 
+         ml = new MovieList();
 
-        System.out.println("Noluyo öyle"+categoryName);
+         listRef.addValueEventListener(new ValueEventListener() {
+             @Override
+             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                 Iterable< DataSnapshot > cList = snapshot.getChildren();
+
+                 allList.clear();
+                 for ( DataSnapshot list : cList )
+                 {
+                     MovieList thelist = list.getValue( MovieList.class );
+                     allList.add( thelist );
+                 }
 
 
-        final DatabaseReference listRef =FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child( "movielists" );
+                 if( allList.size() != 0 ) {
+                     for ( int i = 0; i < allList.size(); i++ ) {
+
+
+                         if( allList.get( i ).getName().equals( categoryName ) )
+                         {
+
+                             ml = allList.get( i );
+
+                             currentPosition = i;
+
+                         }
+                     }
+                 }
+             }
+
+             @Override
+             public void onCancelled(@NonNull DatabaseError error) {
+
+             }
+         });
+
+
+
+
+
+        //System.out.println("Noluyo öyle"+categoryName);
+
+
+
 
         listRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,5 +131,32 @@ public class NewCategory extends AppCompatActivity {
             }
         });
 
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                 String movieName = movieNameEt.getText().toString();
+                 //System.out.println(movieName+"o ne oyle");
+              // System.out.println("all "+allList.get(0).getName());
+
+                // System.out.println("boş olma "+ml.getName());
+
+
+                //ml.addMovie(new MovieItem("movieName", " imagecode"));
+                 ml.addMovie(new MovieItem(movieName, movieName+" imagecode"));
+                 FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists").child(""+currentPosition).setValue(ml);
+
+               //FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists").setValue(movieLists);
+            }
+
+
+
+        });
+
+
+
+
     }
+
 }
