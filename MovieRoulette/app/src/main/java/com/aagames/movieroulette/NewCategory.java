@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,8 +24,8 @@ import java.util.ArrayList;
 public class NewCategory extends AppCompatActivity {
 
     Button create;
-    String categoryName;
-    EditText catNameEt;
+
+    TextView catNameEt;
     EditText movieNameEt;
     String id;
     FirebaseAuth auth;
@@ -42,28 +43,33 @@ public class NewCategory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_category);
 
-         final ArrayList<MovieItem> movieList1 = new ArrayList<>();
 
         auth = FirebaseAuth.getInstance();
         id = auth.getUid();
         final DatabaseReference listRef =FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child( "movielists" );
-        create = (Button) findViewById(R.id.createCat);
-        catNameEt = (EditText) findViewById(R.id.catNameEt);
+
+        catNameEt = (TextView) findViewById(R.id.catNameEt);
         movieNameEt = (EditText) findViewById(R.id.movieNameEt);
 
+        final String listname = getIntent().getStringExtra( "listname" );
+
+        catNameEt.setText(listname);
         myRecyclerView = (RecyclerView)  findViewById(R.id.mRV);
 
+        ml = new MovieList();
 
         mLayoutManager = new GridLayoutManager(getApplicationContext(),3);
         myRecyclerView.setLayoutManager(mLayoutManager);
-
+        mAdapter = new MovieAdapterPlus(getApplicationContext(),ml.movies, listname);
+        myRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
 
         final ArrayList<MovieList> allList = new ArrayList<>();
         
         add = (Button) findViewById(R.id.add);
-        add.setVisibility(View.INVISIBLE);
+        //add.setVisibility(View.INVISIBLE);
 
-         ml = new MovieList();
+
 
          listRef.addValueEventListener(new ValueEventListener() {
              @Override
@@ -83,7 +89,7 @@ public class NewCategory extends AppCompatActivity {
                      for ( int i = 0; i < allList.size(); i++ ) {
 
 
-                         if( allList.get( i ).getName().equals( categoryName ) )
+                         if( allList.get( i ).getName().equals( listname ) )
                          {
 
                              ml = allList.get( i );
@@ -92,6 +98,9 @@ public class NewCategory extends AppCompatActivity {
 
                          }
                      }
+                     mAdapter = new MovieAdapterPlus(getApplicationContext(),ml.movies, listname);
+                     myRecyclerView.setAdapter(mAdapter);
+                     mAdapter.notifyDataSetChanged();
                  }
              }
 
@@ -131,17 +140,7 @@ public class NewCategory extends AppCompatActivity {
             }
         });
 
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                categoryName = catNameEt.getText().toString();
-                listRef.child( ""+next ).setValue(new MovieList(categoryName));
-                create.setVisibility(View.INVISIBLE);
-                catNameEt.setFocusable(false);
-                Toast.makeText(getApplicationContext(),categoryName+" category has created. You can add movies.",Toast.LENGTH_SHORT).show();
-                add.setVisibility(View.VISIBLE);
-            }
-        });
+
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,7 +164,7 @@ public class NewCategory extends AppCompatActivity {
             
 
 
-                  mAdapter = new MovieAdapterPlus(getApplicationContext(),ml.movies, categoryName);
+                  mAdapter = new MovieAdapterPlus(getApplicationContext(),ml.movies, listname);
                   myRecyclerView.setAdapter(mAdapter);
                   mAdapter.notifyDataSetChanged();
 

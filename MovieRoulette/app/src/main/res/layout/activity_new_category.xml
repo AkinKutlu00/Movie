@@ -13,21 +13,16 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <EditText
+    <TextView
         android:id="@+id/catNameEt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="20"
-        android:ems="10"
+        android:layout_height="50dp"
+
+        android:gravity="center"
         android:hint="New Category Name"
         android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/createCat"
-        android:layout_weight="100"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Create" />
+
 </LinearLayout>
 
     <LinearLayout

@@ -51,6 +51,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MovieV
 
             }
         });
+        holder.categoryNameBtn.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent = new Intent( context, NewCategory.class );
+
+                intent.putExtra( "listname", categories.get(position));
+                intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+                context.startActivity( intent );
+
+                return false;
+            }
+        });
 
     }
 

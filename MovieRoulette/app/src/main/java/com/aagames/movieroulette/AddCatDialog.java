@@ -56,8 +56,13 @@ public class AddCatDialog extends AppCompatDialogFragment {
 
                         listName=listNameEt.getText().toString();
                         listRef.child( ""+catNumber ).setValue(new MovieList(listName));
-                        //startActivity(new Intent( view.getContext(), NewCategory.class));
-                        System.out.println(catNumber+" alley");
+
+
+                        final Intent intent = new Intent( view.getContext(), NewCategory.class);
+                        intent.putExtra( "listname", listName);
+                        intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+                        startActivity(intent);
+                        //System.out.println(catNumber+" alley");
 
                     }
                 })
