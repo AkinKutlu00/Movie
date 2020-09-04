@@ -62,7 +62,8 @@ public class Categories extends AppCompatActivity {
         newCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), NewCategory.class));
+                openDialog();
+                //startActivity(new Intent(getApplicationContext(), NewCategory.class));
 
 
             }
@@ -108,5 +109,10 @@ public class Categories extends AppCompatActivity {
 
 
 
+    }
+
+    public void openDialog() {
+        AddCatDialog catDialog = new AddCatDialog(categories.size());
+        catDialog.show(getSupportFragmentManager(),"example");
     }
 }
