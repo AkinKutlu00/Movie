@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Categories"></activity>
+        <activity android:name=".SendList"></activity>
+        <activity android:name=".Categories" />
         <activity android:name=".NewCategory" />
         <activity android:name=".Register" />
         <activity android:name=".MainActivity" />

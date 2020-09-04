@@ -24,10 +24,14 @@ public class Categories extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView myRecyclerView;
     ArrayList<String> categories;
+    ArrayList<String> adminCategories;
     private FirebaseAuth auth;
+    ArrayList<String> missing;
+
 
     Button logOut;
     Button newCategory;
+    Button send;
 
     //ArrayList<MovieList> lists;
 
@@ -41,9 +45,24 @@ public class Categories extends AppCompatActivity {
         final String id = auth.getUid();
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists");
 
-        categories = new ArrayList<>();
+        DatabaseReference adminRef = FirebaseDatabase.getInstance().getReference().child( "ListOfMovies" );
 
-        mAdapter = new CategoryAdapter(getApplicationContext(),categories);
+        missing = new ArrayList<>();
+
+
+        send = (Button) findViewById(R.id.send);
+
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), SendList.class));
+            }
+        });
+
+        categories = new ArrayList<>();
+        adminCategories = new ArrayList<>();
+
+        mAdapter = new CategoryAdapter(getApplicationContext(), categories);
 
         logOut = (Button) findViewById(R.id.logoutbtn);
 
@@ -92,6 +111,50 @@ public class Categories extends AppCompatActivity {
             }
         });
 
+        adminRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                adminCategories.clear();
+                // lists = new ArrayList<MovieList>();
+                for( DataSnapshot shot: snapshot.getChildren() )
+                {
+                    MovieList list =  ( MovieList ) shot.getValue( MovieList.class );
+
+                    //lists.add( list );
+                    adminCategories.add( list.getName() );
+                    //mAdapter.notifyDataSetChanged();
+                    System.out.println("admin"+ list.getName() );
+
+                }
+
+                for(int i=0;i<adminCategories.size();i++){
+                    //System.out.println("lost of gravity:" + adminCategories.get(i) );
+                    String miss=findMissing(categories, adminCategories.get(i));
+                    if(!miss.equals("")){
+                        missing.add(miss);
+                    }
+
+
+
+                }
+
+                for(int i=0;i<missing.size();i++){
+                    // bulduklarını ekle
+
+
+                }
+
+            }
+
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         //mAdapter.notifyDataSetChanged();
 
         //categories.add("AAA");
@@ -100,6 +163,9 @@ public class Categories extends AppCompatActivity {
 
 
        // mAdapter = new CategoryAdapter(getApplicationContext(),categories);
+
+
+
 
         myRecyclerView = findViewById(R.id.rv);
         //myRecyclerView.setHasFixedSize(true);
@@ -110,6 +176,21 @@ public class Categories extends AppCompatActivity {
 
 
     }
+
+    public static String findMissing(ArrayList<String> list , String target) {
+        int pos = 0;
+        while ( pos < list.size()-1 && !(list.get(pos).equals(target)) ){
+            pos++;
+        }
+
+        if ( (list.get(pos)).equals(target)){
+            return "";
+        }else{
+            return target;
+        }
+
+    }
+
 
     public void openDialog() {
         AddCatDialog catDialog = new AddCatDialog(categories.size());
