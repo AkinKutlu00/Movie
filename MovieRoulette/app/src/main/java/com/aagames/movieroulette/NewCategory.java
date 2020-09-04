@@ -3,6 +3,7 @@ package com.aagames.movieroulette;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -31,12 +32,17 @@ public class NewCategory extends AppCompatActivity {
     Button add;
     MovieList ml;
     int currentPosition;
-
+    private RecyclerView myRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    String movieName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_category);
+
+         final ArrayList<MovieItem> movieList1 = new ArrayList<>();
 
         auth = FirebaseAuth.getInstance();
         id = auth.getUid();
@@ -44,6 +50,12 @@ public class NewCategory extends AppCompatActivity {
         create = (Button) findViewById(R.id.createCat);
         catNameEt = (EditText) findViewById(R.id.catNameEt);
         movieNameEt = (EditText) findViewById(R.id.movieNameEt);
+
+        myRecyclerView = (RecyclerView)  findViewById(R.id.mRV);
+
+
+        mLayoutManager = new GridLayoutManager(getApplicationContext(),3);
+        myRecyclerView.setLayoutManager(mLayoutManager);
 
 
         final ArrayList<MovieList> allList = new ArrayList<>();
@@ -136,7 +148,10 @@ public class NewCategory extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                 String movieName = movieNameEt.getText().toString();
+
+
+              movieName = movieNameEt.getText().toString();
+
                  //System.out.println(movieName+"o ne oyle");
               // System.out.println("all "+allList.get(0).getName());
 
@@ -146,6 +161,13 @@ public class NewCategory extends AppCompatActivity {
                 //ml.addMovie(new MovieItem("movieName", " imagecode"));
                  ml.addMovie(new MovieItem(movieName, movieName+" imagecode"));
                  FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists").child(""+currentPosition).setValue(ml);
+
+            
+
+
+                  mAdapter = new MovieAdapterPlus(getApplicationContext(),ml.movies, categoryName);
+                  myRecyclerView.setAdapter(mAdapter);
+                  mAdapter.notifyDataSetChanged();
 
                //FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists").setValue(movieLists);
             }
