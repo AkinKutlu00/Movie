@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import androidx.appcompat.widget.Toolbar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -58,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
     MovieList currentList;
 
+    Toolbar toolbar;
+
 
     MovieList movies = new MovieList( "Mubi" );
 
@@ -75,12 +78,17 @@ public class MainActivity extends AppCompatActivity {
         listName = "1";
         final ArrayList<MovieItem> movieList2 = new ArrayList<>();
 
+        toolbar = findViewById( R.id.toolBar );
+        setSupportActionBar( toolbar );
+
+
         TextView tv= (TextView) findViewById(R.id.title);
 
         auth = FirebaseAuth.getInstance();
         title = (TextView) findViewById(R.id.title);
 
         final String titleName = getIntent().getStringExtra( "categoryname" );
+        toolbar.setTitle(titleName);
         title.setText(titleName);
 
         final ArrayList<MovieList> allList = new ArrayList<>();
@@ -331,10 +339,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+        this.getSupportActionBar().setHomeAsUpIndicator( R.drawable.ic_menu_white_24dp);
+        getSupportActionBar().setTitle(titleName);
         mAdapter = new MovieAdapter(getApplicationContext(),movieList1,listName);
+
 
 
         myRecyclerView.setLayoutManager(mLayoutManager);

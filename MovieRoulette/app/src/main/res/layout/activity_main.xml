@@ -27,6 +27,14 @@
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="100dp">
 
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorBackground"
+                app:titleTextColor="#FFFFFF"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
