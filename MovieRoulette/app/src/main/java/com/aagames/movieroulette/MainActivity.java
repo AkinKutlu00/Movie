@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -77,6 +78,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.change_adapter_menu,menu);
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,14 +97,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar( toolbar );
 
 
-        TextView tv= (TextView) findViewById(R.id.title);
+
 
         auth = FirebaseAuth.getInstance();
-        title = (TextView) findViewById(R.id.title);
 
         final String titleName = getIntent().getStringExtra( "categoryname" );
         toolbar.setTitle(titleName);
-        title.setText(titleName);
+
 
         final ArrayList<MovieList> allList = new ArrayList<>();
 
@@ -135,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         //      Change their sizes and styles according to the information taken from Firebase
                         if( allList.get( i ).getName().equals( titleName ) )
                         {
-                            title.setText( ( allList.get( i ) ).getName() );
+
 
                             currentList = allList.get( i );
                             movieList1 = allList.get( i ).movies;
@@ -176,31 +183,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
-        //silinecek
-        final Intent intent = new Intent(this, Login.class);
-
-        button = (Button) findViewById(R.id.button9);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(intent);
-                auth.signOut();
-
-            }
-        });
-
-        //silin sonu
-
-        Button cat = (Button) findViewById(R.id.cat);
-        cat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity( new Intent(getApplicationContext(), Categories.class) );
-            }
-        });
-
-
-
 
         DatabaseReference imdb = database.getReference("movielists").child("imdb");
 
@@ -209,8 +191,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         myRecyclerView.setHasFixedSize(true);
         mLayoutManager = new GridLayoutManager(this,10);
 
-        plus = (Button) findViewById(R.id.plus);
-        minus = (Button) findViewById(R.id.minus);
 
         random = findViewById(R.id.randomButton);
         random.setOnClickListener(new View.OnClickListener() {
@@ -288,46 +268,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-        plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mod < 2){
-                    mod++;;
-
-                }
-
-                if(mod == 0){
-                    mLayoutManager = new GridLayoutManager(getApplicationContext(),10);
-                    myRecyclerView.setLayoutManager(mLayoutManager);
-                    mAdapter = new MovieAdapter(getApplicationContext(),movieList1, listName);
-                    myRecyclerView.setAdapter(mAdapter);
 
 
-                }else if(mod == 1){
-                    mLayoutManager = new GridLayoutManager(getApplicationContext(),3);
-                    myRecyclerView.setLayoutManager(mLayoutManager);
-                    mAdapter = new MovieAdapterPlus(getApplicationContext(),movieList1,listName);
-                    myRecyclerView.setAdapter(mAdapter);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+        this.getSupportActionBar().setHomeAsUpIndicator( R.drawable.ic_menu_white_24dp);
+        getSupportActionBar().setTitle(titleName);
+        mAdapter = new MovieAdapter(getApplicationContext(),movieList1,listName);
 
 
-                }else{
-                    mLayoutManager = new GridLayoutManager(getApplicationContext(),1);
-                    myRecyclerView.setLayoutManager(mLayoutManager);
-                    mAdapter = new MovieAdapterBig(getApplicationContext(),movieList1,listName);
-                    myRecyclerView.setAdapter(mAdapter);
 
-                }
+        myRecyclerView.setLayoutManager(mLayoutManager);
+        myRecyclerView.setAdapter(mAdapter);
 
-            }
-        });
 
-        minus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        System.out.println("maxnumber: "+  maxNumber);
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected( @NonNull MenuItem item ) {
+
+        String msg = "";
+        switch (item.getItemId()) {
+            case R.id.left:
                 if(mod > 0){
                     mod--;
 
                 }
+
+
 
                 if(mod == 0){
                     mLayoutManager = new GridLayoutManager(getApplicationContext(),10);
@@ -350,27 +320,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     myRecyclerView.setAdapter(mAdapter);
 
                 }
-            }
-        });
+                break;
+            case R.id.right:
+                if(mod < 2){
+                    mod++;;
 
-        this.getSupportActionBar().setDisplayHomeAsUpEnabled( true );
-        this.getSupportActionBar().setHomeAsUpIndicator( R.drawable.ic_menu_white_24dp);
-        getSupportActionBar().setTitle(titleName);
-        mAdapter = new MovieAdapter(getApplicationContext(),movieList1,listName);
-
-
-
-        myRecyclerView.setLayoutManager(mLayoutManager);
-        myRecyclerView.setAdapter(mAdapter);
-
-
-        System.out.println("maxnumber: "+  maxNumber);
+                }
+                if(mod == 0){
+                    mLayoutManager = new GridLayoutManager(getApplicationContext(),10);
+                    myRecyclerView.setLayoutManager(mLayoutManager);
+                    mAdapter = new MovieAdapter(getApplicationContext(),movieList1, listName);
+                    myRecyclerView.setAdapter(mAdapter);
 
 
-    }
+                }else if(mod == 1){
+                    mLayoutManager = new GridLayoutManager(getApplicationContext(),3);
+                    myRecyclerView.setLayoutManager(mLayoutManager);
+                    mAdapter = new MovieAdapterPlus(getApplicationContext(),movieList1,listName);
+                    myRecyclerView.setAdapter(mAdapter);
 
-    @Override
-    public boolean onOptionsItemSelected( @NonNull MenuItem item ) {
+
+                }else{
+                    mLayoutManager = new GridLayoutManager(getApplicationContext(),1);
+                    myRecyclerView.setLayoutManager(mLayoutManager);
+                    mAdapter = new MovieAdapterBig(getApplicationContext(),movieList1,listName);
+                    myRecyclerView.setAdapter(mAdapter);
+
+                    break;
+        }
+        }
+
 
         // Navigation Drawer handling
         if ( myToggle.onOptionsItemSelected(item) ) {
@@ -378,6 +357,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public boolean onNavigationItemSelected( @NonNull MenuItem menuItem ) {

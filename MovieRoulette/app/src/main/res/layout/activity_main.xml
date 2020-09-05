@@ -46,51 +46,13 @@
                 tools:ignore="MissingConstraints">
 
 
-                <TextView
-
-                    android:id="@+id/title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="20"
-                    android:gravity="center"
-                    android:text="Imdb Top 100"
-                    android:textColor="#FFFFFF"
-                    android:textSize="30dp"
-                    tools:ignore="MissingConstraints" />
-
-                <Button
-                    android:id="@+id/button9"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="50"
-                    android:text="Login" />
-                <Button
-                    android:id="@+id/cat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="50"
-                    android:text="cat" />
-
-                <Button
-                    android:id="@+id/minus"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="50"
-                    android:text="-" />
-
-                <Button
-                    android:id="@+id/plus"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="50"
-                    android:text="-" />
 
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/myRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="530dp"
+                android:layout_height="match_parent"
                 android:background="@color/colorBackground"
                 app:layout_anchorGravity="center"
                 tools:ignore="MissingConstraints">
