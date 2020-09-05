@@ -1,7 +1,10 @@
 package com.aagames.movieroulette;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +15,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView myRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -57,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<MovieItem> movieList1 = new ArrayList<>();
     private FirebaseAuth auth;
 
+    private DrawerLayout myDrawerLayout;
+    private ActionBarDrawerToggle myToggle;
     MovieList currentList;
 
     Toolbar toolbar;
@@ -93,6 +100,13 @@ public class MainActivity extends AppCompatActivity {
 
         final ArrayList<MovieList> allList = new ArrayList<>();
 
+        myDrawerLayout = (DrawerLayout)findViewById( R.id.drawer );
+        myToggle = new ActionBarDrawerToggle(this, myDrawerLayout, R.string.open, R.string.close );
+        myDrawerLayout.addDrawerListener( myToggle );
+        myToggle.syncState();
+        NavigationView navigationView = findViewById( R.id.navigation_view );
+        navigationView.setNavigationItemSelectedListener( this );
+        View headerView = navigationView.getHeaderView( 0 );
 
 
         final String id = auth.getUid();
@@ -355,7 +369,43 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected( @NonNull MenuItem item ) {
 
+        // Navigation Drawer handling
+        if ( myToggle.onOptionsItemSelected(item) ) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected( @NonNull MenuItem menuItem ) {
+        if( menuItem.getItemId() == R.id.profile ) {
+            //Intent intent = new Intent( getApplicationContext(), ProfileActivity.class );
+            //startActivity( intent );
+        }
+
+        else if( menuItem.getItemId() == R.id.categories ) {
+            startActivity( new Intent(getApplicationContext(), Categories.class ) );
+        }
+
+        else if( menuItem.getItemId() == R.id.friends ) {
+           // Intent intent = new Intent( getApplicationContext(), Slider.class );
+            //startActivity(intent);
+        }
+
+        else if( menuItem.getItemId() == R.id.log_out ) {
+            auth.signOut();
+            startActivity( new Intent( getApplicationContext(), Login.class ) );
+            finish();
+        }
+
+
+        //close navigation drawer
+        myDrawerLayout.closeDrawer( GravityCompat.START );
+        return true;
+    }
 
 
 }
