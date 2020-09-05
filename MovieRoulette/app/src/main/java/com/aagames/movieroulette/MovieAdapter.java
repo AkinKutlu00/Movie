@@ -64,16 +64,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         }
 
 
-        holder.movieNameTv.setText(""+position);
-        holder.movieImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,mMovieList.get(position).getName(),Toast.LENGTH_SHORT).show();
+        holder.movieNameTv.setText(""+(position+1));
 
-
-
-            }
-        });
 
         holder.movieImageView.setOnClickListener(new View.OnClickListener() {
             @Override

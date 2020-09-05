@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     Toolbar toolbar;
 
-
+    final ArrayList<MovieList> allList = new ArrayList<>();
     MovieList movies = new MovieList( "Mubi" );
 
     DatabaseReference myRef;
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar.setTitle(titleName);
 
 
-        final ArrayList<MovieList> allList = new ArrayList<>();
+
 
         myDrawerLayout = (DrawerLayout)findViewById( R.id.drawer );
         myToggle = new ActionBarDrawerToggle(this, myDrawerLayout, R.string.open, R.string.close );
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final String id = auth.getUid();
         myRef = FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists");
 
-        //??????????????????????
+
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -147,27 +147,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             currentList = allList.get( i );
                             movieList1 = allList.get( i ).movies;
                             listName = ""+i;
-                            if(mod == 0){
-                                mLayoutManager = new GridLayoutManager(getApplicationContext(),10);
-                                myRecyclerView.setLayoutManager(mLayoutManager);
-                                mAdapter = new MovieAdapter(getApplicationContext(),movieList1, listName);
-                                myRecyclerView.setAdapter(mAdapter);
-
-
-                            }else if(mod == 1){
-                                mLayoutManager = new GridLayoutManager(getApplicationContext(),3);
-                                myRecyclerView.setLayoutManager(mLayoutManager);
-                                mAdapter = new MovieAdapterPlus(getApplicationContext(),movieList1,listName);
-                                myRecyclerView.setAdapter(mAdapter);
-
-
-                            }else{
-                                mLayoutManager = new GridLayoutManager(getApplicationContext(),1);
-                                myRecyclerView.setLayoutManager(mLayoutManager);
-                                mAdapter = new MovieAdapterBig(getApplicationContext(),movieList1,listName);
-                                myRecyclerView.setAdapter(mAdapter);
-
-                            }
+                            updateRv();
 
 
 
@@ -181,10 +161,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
-
-
-
-        DatabaseReference imdb = database.getReference("movielists").child("imdb");
 
 
         myRecyclerView = findViewById(R.id.myRecyclerView);
@@ -281,7 +257,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         myRecyclerView.setAdapter(mAdapter);
 
 
-        System.out.println("maxnumber: "+  maxNumber);
 
 
     }
@@ -289,65 +264,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected( @NonNull MenuItem item ) {
 
-        String msg = "";
         switch (item.getItemId()) {
             case R.id.left:
                 if(mod > 0){
                     mod--;
-
                 }
-
-
-
-                if(mod == 0){
-                    mLayoutManager = new GridLayoutManager(getApplicationContext(),10);
-                    myRecyclerView.setLayoutManager(mLayoutManager);
-                    mAdapter = new MovieAdapter(getApplicationContext(),movieList1, listName);
-                    myRecyclerView.setAdapter(mAdapter);
-
-
-                }else if(mod == 1){
-                    mLayoutManager = new GridLayoutManager(getApplicationContext(),3);
-                    myRecyclerView.setLayoutManager(mLayoutManager);
-                    mAdapter = new MovieAdapterPlus(getApplicationContext(),movieList1,listName);
-                    myRecyclerView.setAdapter(mAdapter);
-
-
-                }else if(mod == 2){
-                    mLayoutManager = new GridLayoutManager(getApplicationContext(),1);
-                    myRecyclerView.setLayoutManager(mLayoutManager);
-                    mAdapter = new MovieAdapterBig(getApplicationContext(),movieList1,listName);
-                    myRecyclerView.setAdapter(mAdapter);
-
-                }
+                updateRv();
                 break;
             case R.id.right:
                 if(mod < 2){
-                    mod++;;
-
+                    mod++;
                 }
-                if(mod == 0){
-                    mLayoutManager = new GridLayoutManager(getApplicationContext(),10);
-                    myRecyclerView.setLayoutManager(mLayoutManager);
-                    mAdapter = new MovieAdapter(getApplicationContext(),movieList1, listName);
-                    myRecyclerView.setAdapter(mAdapter);
-
-
-                }else if(mod == 1){
-                    mLayoutManager = new GridLayoutManager(getApplicationContext(),3);
-                    myRecyclerView.setLayoutManager(mLayoutManager);
-                    mAdapter = new MovieAdapterPlus(getApplicationContext(),movieList1,listName);
-                    myRecyclerView.setAdapter(mAdapter);
-
-
-                }else{
-                    mLayoutManager = new GridLayoutManager(getApplicationContext(),1);
-                    myRecyclerView.setLayoutManager(mLayoutManager);
-                    mAdapter = new MovieAdapterBig(getApplicationContext(),movieList1,listName);
-                    myRecyclerView.setAdapter(mAdapter);
-
+                updateRv();
                     break;
-        }
+
         }
 
 
@@ -361,31 +291,57 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected( @NonNull MenuItem menuItem ) {
-        if( menuItem.getItemId() == R.id.profile ) {
-            //Intent intent = new Intent( getApplicationContext(), ProfileActivity.class );
-            //startActivity( intent );
-        }
 
-        else if( menuItem.getItemId() == R.id.categories ) {
-            startActivity( new Intent(getApplicationContext(), Categories.class ) );
+        switch (menuItem.getItemId()){
+            case R.id.profile:
+                break;
+            case R.id.categories:
+                startActivity( new Intent(getApplicationContext(), Categories.class ) );
+                break;
+            case R.id.newCategory:
+                AddCatDialog catDialog = new AddCatDialog(allList.size());
+                catDialog.show(getSupportFragmentManager(),"example");
+                break;
+            case R.id.friends:
+                break;
+            case R.id.log_out:
+                auth.signOut();
+                startActivity( new Intent( getApplicationContext(), Login.class ) );
+                finish();
+                break;
         }
-
-        else if( menuItem.getItemId() == R.id.friends ) {
-           // Intent intent = new Intent( getApplicationContext(), Slider.class );
-            //startActivity(intent);
-        }
-
-        else if( menuItem.getItemId() == R.id.log_out ) {
-            auth.signOut();
-            startActivity( new Intent( getApplicationContext(), Login.class ) );
-            finish();
-        }
-
 
         //close navigation drawer
         myDrawerLayout.closeDrawer( GravityCompat.START );
         return true;
     }
+
+    public void updateRv(){
+        if(mod == 0){
+            mLayoutManager = new GridLayoutManager(getApplicationContext(),10);
+            myRecyclerView.setLayoutManager(mLayoutManager);
+            mAdapter = new MovieAdapter(getApplicationContext(),movieList1, listName);
+            myRecyclerView.setAdapter(mAdapter);
+
+
+        }else if(mod == 1){
+            mLayoutManager = new GridLayoutManager(getApplicationContext(),3);
+            myRecyclerView.setLayoutManager(mLayoutManager);
+            mAdapter = new MovieAdapterPlus(getApplicationContext(),movieList1,listName);
+            myRecyclerView.setAdapter(mAdapter);
+
+
+        }else if(mod == 2){
+            mLayoutManager = new GridLayoutManager(getApplicationContext(),1);
+            myRecyclerView.setLayoutManager(mLayoutManager);
+            mAdapter = new MovieAdapterBig(getApplicationContext(),movieList1,listName);
+            myRecyclerView.setAdapter(mAdapter);
+
+        }
+
+    }
+
+
 
 
 }
