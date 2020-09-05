@@ -7,34 +7,26 @@
     tools:context=".MainActivity"
     android:id="@+id/drawer"
     android:background="@color/colorBackground">
-
-    <Button
-
-        android:id="@+id/randomButton"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom|right"
-        android:text="Random Movie"
-        tools:ignore="MissingConstraints,VectorDrawableCompat" />
+        android:layout_height="match_parent"
+        tools:context=".activities.MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="100dp">
+            android:weightSum="10">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/colorBackground"
-                app:titleTextColor="#FFFFFF"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:titleTextColor="#FFFFFF" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -46,7 +38,6 @@
                 tools:ignore="MissingConstraints">
 
 
-
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -55,12 +46,29 @@
                 android:layout_height="match_parent"
                 android:background="@color/colorBackground"
                 app:layout_anchorGravity="center"
+                android:layout_weight = "10"
                 tools:ignore="MissingConstraints">
 
 
             </androidx.recyclerview.widget.RecyclerView>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:id="@+id/randomButton"
+                android:layout_weight="10"
+                android:text="Random Movie"
+                android:textSize="20sp" />
+
         </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

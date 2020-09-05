@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.LayoutManager mLayoutManager2;
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
 
     private Button random;
     Button plus;
@@ -61,14 +62,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     int mod;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     ArrayList<MovieItem> movieList1 = new ArrayList<>();
-    private FirebaseAuth auth;
 
+    DatabaseReference databaseReferenceProfile;
     private DrawerLayout myDrawerLayout;
     private ActionBarDrawerToggle myToggle;
     MovieList currentList;
 
     Toolbar toolbar;
-
+    final String id = auth.getUid();
     final ArrayList<MovieList> allList = new ArrayList<>();
     MovieList movies = new MovieList( "Mubi" );
 
@@ -93,13 +94,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         listName = "1";
         final ArrayList<MovieItem> movieList2 = new ArrayList<>();
 
+
         toolbar = findViewById( R.id.toolBar );
         setSupportActionBar( toolbar );
 
 
+        databaseReferenceProfile = FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child( "profile" );
 
 
-        auth = FirebaseAuth.getInstance();
+
 
         final String titleName = getIntent().getStringExtra( "categoryname" );
         toolbar.setTitle(titleName);
@@ -115,11 +118,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener( this );
         View headerView = navigationView.getHeaderView( 0 );
 
+        final TextView name = ( TextView ) headerView.findViewById( R.id.name );
+        final TextView mail = ( TextView ) headerView.findViewById( R.id.mail );
 
-        final String id = auth.getUid();
+        databaseReferenceProfile.addValueEventListener( new ValueEventListener() {
+            @Override
+            public void onDataChange( @NonNull DataSnapshot dataSnapshot ) {
+
+                String theName = dataSnapshot.child( "name" ).getValue( String.class );
+                String theEmail = dataSnapshot.child( "email" ).getValue( String.class );
+
+                name.setText(theName);
+                mail.setText(theEmail);
+            }
+
+            @Override
+            public void onCancelled( @NonNull DatabaseError databaseError ) {
+
+            }
+        });
+
         myRef = FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists");
-
-
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
