@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.aagames.movieroulette.objects.MovieList;
 import com.aagames.movieroulette.objects.UserItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +33,8 @@ public class AddFriendDialog extends AppCompatDialogFragment {
     FirebaseAuth auth;
 
     ArrayList<UserItem> friendsList;
+    ArrayList<String> notif;
+    String username;
 
 
     @NonNull
@@ -85,13 +88,30 @@ public class AddFriendDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-
+                        notif = new ArrayList<>();
                         listName=listNameEt.getText().toString();
 
                         final UserItem friendItem =new UserItem(listName, null,null);
 
                         DatabaseReference databaseReferenceUsers = FirebaseDatabase.getInstance().getReference().child( "infoUsers" ).child(listName);
 
+                        FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child( "profile" ).addValueEventListener( new ValueEventListener() {
+                            @Override
+                            public void onDataChange( @NonNull DataSnapshot dataSnapshot ) {
+
+                                String theName = dataSnapshot.child( "name" ).getValue( String.class );
+
+                                username = theName;
+
+
+
+                            }
+
+                            @Override
+                            public void onCancelled( @NonNull DatabaseError databaseError ) {
+
+                            }
+                        });
 
                         databaseReferenceUsers.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -107,6 +127,8 @@ public class AddFriendDialog extends AppCompatDialogFragment {
                                     friendItem.setId(n.getId());
                                     friendsList.add(friendItem);
                                     listRef.setValue(friendsList);
+
+                                    FirebaseDatabase.getInstance().getReference().child("users").child(n.getId()).child("notifications").push().setValue(username+" Seni arkadaş olarak ekledi");
                                 }
 
 

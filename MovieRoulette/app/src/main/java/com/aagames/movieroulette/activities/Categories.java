@@ -32,10 +32,8 @@ public class Categories extends AppCompatActivity {
     private FirebaseAuth auth;
     ArrayList<String> missing;
 
-
-    Button logOut;
     Button newCategory;
-    Button send;
+
 
     //ArrayList<MovieList> lists;
 
@@ -53,31 +51,11 @@ public class Categories extends AppCompatActivity {
 
         missing = new ArrayList<>();
 
-
-        send = (Button) findViewById(R.id.send);
-
-        send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), SendList.class));
-            }
-        });
-
         categories = new ArrayList<>();
         adminCategories = new ArrayList<>();
 
         mAdapter = new CategoryAdapter(getApplicationContext(), categories);
 
-        logOut = (Button) findViewById(R.id.logoutbtn);
-
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Login.class));
-                auth.signOut();
-
-            }
-        });
 
 
         newCategory = (Button) findViewById(R.id.newcat);
@@ -118,6 +96,7 @@ public class Categories extends AppCompatActivity {
 
 
 
+
         myRecyclerView = findViewById(R.id.rv);
         //myRecyclerView.setHasFixedSize(true);
         mLayoutManager = new GridLayoutManager(this,3);
@@ -148,11 +127,7 @@ public class Categories extends AppCompatActivity {
         catDialog.show(getSupportFragmentManager(),"example");
     }
 
-    public void addMissing(String name) {
 
-
-
-    }
 
 
 }

@@ -8,24 +8,11 @@
     tools:context=".activities.Categories">
 
 
-
-    <Button
-        android:id="@+id/logoutbtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="log out" />
-
     <Button
         android:id="@+id/newcat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="New Category" />
-
-    <Button
-        android:id="@+id/send"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Send" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"

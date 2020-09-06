@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 
@@ -28,6 +29,7 @@ import com.aagames.movieroulette.adapters.MovieAdapterBig;
 import com.aagames.movieroulette.adapters.MovieAdapterPlus;
 import com.aagames.movieroulette.objects.MovieItem;
 import com.aagames.movieroulette.objects.MovieList;
+import com.aagames.movieroulette.objects.UserItem;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -104,13 +106,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         databaseReferenceProfile = FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child( "profile" );
 
-
-
-
         final String titleName = getIntent().getStringExtra( "categoryname" );
         toolbar.setTitle(titleName);
-
-
 
 
         myDrawerLayout = (DrawerLayout)findViewById( R.id.drawer );
@@ -123,6 +120,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         final TextView name = ( TextView ) headerView.findViewById( R.id.name );
         final TextView mail = ( TextView ) headerView.findViewById( R.id.mail );
+        final TextView count = ( TextView ) headerView.findViewById( R.id.count );
+        final ImageButton showNotif = (ImageButton) headerView.findViewById( R.id.notif );
+
+        showNotif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
+
+        FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("notifications").addValueEventListener( new ValueEventListener() {
+            @Override
+            public void onDataChange( @NonNull DataSnapshot dataSnapshot ) {
+
+                count.setText(""+(int) dataSnapshot.getChildrenCount());
+
+            }
+
+            @Override
+            public void onCancelled( @NonNull DatabaseError databaseError ) {
+
+            }
+        });
+
 
         databaseReferenceProfile.addValueEventListener( new ValueEventListener() {
             @Override

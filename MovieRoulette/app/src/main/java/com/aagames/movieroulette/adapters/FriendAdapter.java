@@ -1,6 +1,7 @@
 package com.aagames.movieroulette.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aagames.movieroulette.R;
+import com.aagames.movieroulette.activities.SendList;
 import com.aagames.movieroulette.objects.UserItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -59,13 +61,17 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
             public void onClick(View v) {
                 friendList.remove(position);
                 listRef.setValue(friendList);
+
             }
         });
 
         holder.share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentItem.getId();
+                Intent intent = new Intent(context, SendList.class);
+                intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+                intent.putExtra("id", currentItem.getId());
+                context.startActivity( intent );
 
             }
         });
