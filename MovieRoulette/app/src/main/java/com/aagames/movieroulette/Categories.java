@@ -130,8 +130,11 @@ public class Categories extends AppCompatActivity {
                 for(int i=0;i<adminCategories.size();i++){
                     //System.out.println("lost of gravity:" + adminCategories.get(i) );
                     String miss=findMissing(categories, adminCategories.get(i));
-                    if(!miss.equals("")){
+                    if(!(miss.equals(""))){
+                        System.out.println("hellooo :"+miss);
                         missing.add(miss);
+                    }else{
+                        System.out.println("noluyo öyle");
                     }
 
 

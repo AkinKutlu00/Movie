@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Button button;
     int maxNumber ;
     int mod;
+    int revealedNumber;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     ArrayList<MovieItem> movieList1 = new ArrayList<>();
 
@@ -173,6 +174,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                     }
                 }
+
+                revealedNumber=0;
+                for(int i=0;i<movieList1.size();i++){
+
+                    if(movieList1.get(i).getRevealed()){
+                        revealedNumber++;
+                    }
+
+                }
+
+                getSupportActionBar().setTitle(titleName+" ("+revealedNumber+ "/"+ movieList1.size()+")");
             }
 
             @Override
@@ -265,9 +277,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
+
         this.getSupportActionBar().setDisplayHomeAsUpEnabled( true );
         this.getSupportActionBar().setHomeAsUpIndicator( R.drawable.ic_menu_white_24dp);
-        getSupportActionBar().setTitle(titleName);
+        getSupportActionBar().setTitle(titleName+" (0/0)");
         mAdapter = new MovieAdapter(getApplicationContext(),movieList1,listName);
 
 

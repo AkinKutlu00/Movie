@@ -161,6 +161,7 @@ public class NewCategory extends AppCompatActivity {
                  ml.addMovie(new MovieItem(movieName, movieName+" imagecode"));
                  FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists").child(""+currentPosition).setValue(ml);
 
+
             
 
 
