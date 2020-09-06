@@ -115,49 +115,6 @@ public class Categories extends AppCompatActivity {
             }
         });
 
-        adminRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                adminCategories.clear();
-                // lists = new ArrayList<MovieList>();
-                for( DataSnapshot shot: snapshot.getChildren() )
-                {
-                    MovieList list =  ( MovieList ) shot.getValue( MovieList.class );
-
-                    //lists.add( list );
-                    adminCategories.add( list.getName() );
-                    //mAdapter.notifyDataSetChanged();
-                   // System.out.println("admin"+ list.getName() );
-
-                }
-
-                for(int i=0;i<adminCategories.size();i++){
-                    //System.out.println("lost of gravity:" + adminCategories.get(i) );
-                    String miss=findMissing(categories, adminCategories.get(i));
-                    if(!(miss.equals(""))){
-                        System.out.println("hellooo :"+miss);
-                        missing.add(miss);
-                    }
-
-
-
-                }
-
-                for(int i=0;i<missing.size();i++){
-                    // bulduklarını ekle
-                    addMissing(missing.get(i));
-
-                }
-
-            }
-
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
 
 

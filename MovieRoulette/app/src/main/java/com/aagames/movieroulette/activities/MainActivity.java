@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 
 import com.aagames.movieroulette.AddCatDialog;
-import com.aagames.movieroulette.Friends;
+import com.aagames.movieroulette.FriendsActivity;
 import com.aagames.movieroulette.R;
 import com.aagames.movieroulette.adapters.MovieAdapter;
 import com.aagames.movieroulette.adapters.MovieAdapterBig;
@@ -280,6 +280,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
+
         this.getSupportActionBar().setDisplayHomeAsUpEnabled( true );
         this.getSupportActionBar().setHomeAsUpIndicator( R.drawable.ic_menu_white_24dp);
         getSupportActionBar().setTitle(titleName+" (0/0)");
@@ -337,7 +338,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 catDialog.show(getSupportFragmentManager(),"example");
                 break;
             case R.id.friends:
-                startActivity( new Intent(getApplicationContext(), Friends.class ) );
+                startActivity( new Intent(getApplicationContext(), FriendsActivity.class ) );
                 break;
             case R.id.log_out:
                 auth.signOut();

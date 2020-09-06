@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.aagames.movieroulette.R;
 import com.aagames.movieroulette.objects.MovieItem;
 import com.aagames.movieroulette.objects.MovieList;
+import com.aagames.movieroulette.objects.UserItem;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -38,6 +39,7 @@ public class Register extends AppCompatActivity {
 
     FirebaseAuth auth;
     DatabaseReference databaseReferenceProfile;
+    DatabaseReference databaseReferenceUsers;
 
     String id;
 
@@ -144,11 +146,17 @@ public class Register extends AppCompatActivity {
                                     // making changes on database
                                     databaseReferenceProfile.child( "name" ).setValue( nameString );
                                     databaseReferenceProfile.child( "email" ).setValue( email );
+                                    databaseReferenceProfile.child( "id" ).setValue( id );
 
                                    // FirebaseDatabase.getInstance().getReference().child("movielists").child("imdb").setValue(movieList1);
 
                                     FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists").setValue(movieLists);
 
+                                    databaseReferenceUsers = FirebaseDatabase.getInstance().getReference().child( "infoUsers" );
+                                    //databaseReferenceUsers.setValue(""+nameString);
+
+
+                                    databaseReferenceUsers.child( nameString ).setValue( new UserItem(nameString,email,id));
 
                                     // making disapppered progress bar
                                     register.setVisibility( View.VISIBLE );
