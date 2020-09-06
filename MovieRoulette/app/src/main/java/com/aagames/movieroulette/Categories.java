@@ -123,7 +123,7 @@ public class Categories extends AppCompatActivity {
                     //lists.add( list );
                     adminCategories.add( list.getName() );
                     //mAdapter.notifyDataSetChanged();
-                    System.out.println("admin"+ list.getName() );
+                   // System.out.println("admin"+ list.getName() );
 
                 }
 
@@ -133,8 +133,6 @@ public class Categories extends AppCompatActivity {
                     if(!(miss.equals(""))){
                         System.out.println("hellooo :"+miss);
                         missing.add(miss);
-                    }else{
-                        System.out.println("noluyo öyle");
                     }
 
 
@@ -143,7 +141,7 @@ public class Categories extends AppCompatActivity {
 
                 for(int i=0;i<missing.size();i++){
                     // bulduklarını ekle
-
+                    addMissing(missing.get(i));
 
                 }
 
@@ -156,17 +154,6 @@ public class Categories extends AppCompatActivity {
 
             }
         });
-
-
-        //mAdapter.notifyDataSetChanged();
-
-        //categories.add("AAA");
-        //categories.add("BBB");
-        //categories.add("CCC");
-
-
-       // mAdapter = new CategoryAdapter(getApplicationContext(),categories);
-
 
 
 
@@ -199,4 +186,12 @@ public class Categories extends AppCompatActivity {
         AddCatDialog catDialog = new AddCatDialog(categories.size());
         catDialog.show(getSupportFragmentManager(),"example");
     }
+
+    public void addMissing(String name) {
+
+
+
+    }
+
+
 }
