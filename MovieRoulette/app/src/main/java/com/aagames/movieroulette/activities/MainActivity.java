@@ -1,4 +1,4 @@
-package com.aagames.movieroulette;
+package com.aagames.movieroulette.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -6,26 +6,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
-import android.app.AlertDialog;
+
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
+import com.aagames.movieroulette.AddCatDialog;
+import com.aagames.movieroulette.Friends;
+import com.aagames.movieroulette.R;
+import com.aagames.movieroulette.adapters.MovieAdapter;
+import com.aagames.movieroulette.adapters.MovieAdapterBig;
+import com.aagames.movieroulette.adapters.MovieAdapterPlus;
+import com.aagames.movieroulette.objects.MovieItem;
+import com.aagames.movieroulette.objects.MovieList;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -165,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
                             currentList = allList.get( i );
-                            movieList1 = allList.get( i ).movies;
+                            movieList1 = allList.get( i ).getMovies();
                             listName = ""+i;
                             updateRv();
 
@@ -335,6 +337,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 catDialog.show(getSupportFragmentManager(),"example");
                 break;
             case R.id.friends:
+                startActivity( new Intent(getApplicationContext(), Friends.class ) );
                 break;
             case R.id.log_out:
                 auth.signOut();

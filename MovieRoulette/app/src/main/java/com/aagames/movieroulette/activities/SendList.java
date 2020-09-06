@@ -1,10 +1,12 @@
-package com.aagames.movieroulette;
+package com.aagames.movieroulette.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.aagames.movieroulette.R;
+import com.aagames.movieroulette.objects.MovieList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

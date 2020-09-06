@@ -1,4 +1,4 @@
-package com.aagames.movieroulette;
+package com.aagames.movieroulette.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.aagames.movieroulette.R;
+import com.aagames.movieroulette.objects.MovieItem;
+import com.aagames.movieroulette.objects.MovieList;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

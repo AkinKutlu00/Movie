@@ -1,4 +1,4 @@
-package com.aagames.movieroulette;
+package com.aagames.movieroulette.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.aagames.movieroulette.activities.MainActivity;
+import com.aagames.movieroulette.activities.NewCategory;
+import com.aagames.movieroulette.R;
 
 import java.util.ArrayList;
 

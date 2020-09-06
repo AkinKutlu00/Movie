@@ -1,4 +1,6 @@
-package com.aagames.movieroulette;
+package com.aagames.movieroulette.objects;
+
+import com.aagames.movieroulette.objects.MovieItem;
 
 import java.util.ArrayList;
 
@@ -6,8 +8,8 @@ public class MovieList {
 
     // properties
 
-    String name;
-    ArrayList<MovieItem> movies;
+    private String name;
+    private ArrayList<MovieItem> movies;
 
     // constructor
 

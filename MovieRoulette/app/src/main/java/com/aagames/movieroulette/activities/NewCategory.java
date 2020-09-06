@@ -1,4 +1,4 @@
-package com.aagames.movieroulette;
+package com.aagames.movieroulette.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,8 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.aagames.movieroulette.R;
+import com.aagames.movieroulette.adapters.MovieAdapterPlus;
+import com.aagames.movieroulette.objects.MovieItem;
+import com.aagames.movieroulette.objects.MovieList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -60,7 +63,7 @@ public class NewCategory extends AppCompatActivity {
 
         mLayoutManager = new GridLayoutManager(getApplicationContext(),3);
         myRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new MovieAdapterPlus(getApplicationContext(),ml.movies, listname);
+        mAdapter = new MovieAdapterPlus(getApplicationContext(),ml.getMovies(), listname);
         myRecyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
 
@@ -98,7 +101,7 @@ public class NewCategory extends AppCompatActivity {
 
                          }
                      }
-                     mAdapter = new MovieAdapterPlus(getApplicationContext(),ml.movies, listname);
+                     mAdapter = new MovieAdapterPlus(getApplicationContext(),ml.getMovies(), listname);
                      myRecyclerView.setAdapter(mAdapter);
                      mAdapter.notifyDataSetChanged();
                  }
@@ -165,7 +168,7 @@ public class NewCategory extends AppCompatActivity {
             
 
 
-                  mAdapter = new MovieAdapterPlus(getApplicationContext(),ml.movies, listname);
+                  mAdapter = new MovieAdapterPlus(getApplicationContext(),ml.getMovies(), listname);
                   myRecyclerView.setAdapter(mAdapter);
                   mAdapter.notifyDataSetChanged();
 

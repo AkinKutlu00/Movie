@@ -11,12 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SendList"></activity>
-        <activity android:name=".Categories" />
-        <activity android:name=".NewCategory" />
-        <activity android:name=".Register" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Login">
+        <activity android:name=".Friends"></activity>
+        <activity android:name=".activities.SendList" />
+        <activity android:name=".activities.Categories" />
+        <activity android:name=".activities.NewCategory" />
+        <activity android:name=".activities.Register" />
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

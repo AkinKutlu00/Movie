@@ -1,4 +1,4 @@
-package com.aagames.movieroulette;
+package com.aagames.movieroulette.objects;
 
 public class MovieItem {
     private String name;
