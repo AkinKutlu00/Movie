@@ -33,8 +33,8 @@ public class Register extends AppCompatActivity {
     EditText emailEt;
     EditText password;
     EditText confirm;
+    ArrayList<UserItem> userlist;
 
-    ArrayList<String> moviePath = new ArrayList<>();
     Button register;
 
     FirebaseAuth auth;
@@ -49,10 +49,7 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        moviePath.add("imdb");
-        moviePath.add("Rotten Tomatoes");
-        moviePath.add("Mubi");
-
+        userlist = new ArrayList<>();
 
 
         username = findViewById(R.id.userEt);
@@ -68,11 +65,9 @@ public class Register extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        final DatabaseReference myRef2 = database.getReference("movielists").child("Rotten Tomatoes");
 
-        DatabaseReference myRef = database.getReference("movielists").child("imdb");
 
-        myRef = database.getReference("ListOfMovies");
+        DatabaseReference myRef = database.getReference("ListOfMovies");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -90,6 +85,32 @@ public class Register extends AppCompatActivity {
 
 
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        final DatabaseReference listRef = FirebaseDatabase.getInstance().getReference().child( "infoUsers" );
+
+
+        listRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userlist.clear();
+                // lists = new ArrayList<MovieList>();
+                for( DataSnapshot shot: snapshot.getChildren() )
+                {
+                    UserItem friend1 =  ( UserItem ) shot.getValue( UserItem.class );
+
+                    System.out.println("bum "+ friend1.getUsername());
+                    //lists.add( list );
+                    userlist.add( friend1);
+
+                }
+
+            }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -116,7 +137,7 @@ public class Register extends AppCompatActivity {
 
 
                 // if one of the editTexts is empty
-                if ( TextUtils.isEmpty(email) || TextUtils.isEmpty(passwordString) || TextUtils.isEmpty(confirmPassword) )
+                if ( TextUtils.isEmpty(email) || TextUtils.isEmpty(passwordString) || TextUtils.isEmpty(confirmPassword) || TextUtils.isEmpty(nameString) )
                 {
                     Toast.makeText(Register.this, "You should fill both",Toast.LENGTH_SHORT ).show();
 
@@ -131,6 +152,11 @@ public class Register extends AppCompatActivity {
                         register.setVisibility( View.VISIBLE );
                     }
 
+                    else if(check(userlist, nameString)){
+                        Toast.makeText(Register.this, "username is already using", Toast.LENGTH_SHORT ).show();
+
+                        register.setVisibility( View.VISIBLE );
+                    }
                     else {
                         auth.createUserWithEmailAndPassword(email, passwordString).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -180,10 +206,23 @@ public class Register extends AppCompatActivity {
 
 
 
+           }
 
+    public boolean check(ArrayList<UserItem> users, String newUser){
 
+        if(users.size()==0){
 
+            return false;
+        }else{
 
+            int pos = 0;
+            while ( pos < users.size()-1 && !((users.get(pos).getUsername()).equals(newUser) )){
+                pos++;
+            }
+
+            return ( (users.get(pos).getUsername()).equals(newUser));
+
+        }
 
 
     }

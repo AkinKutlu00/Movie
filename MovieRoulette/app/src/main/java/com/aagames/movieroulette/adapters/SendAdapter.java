@@ -17,6 +17,7 @@ import com.aagames.movieroulette.activities.NewCategory;
 import com.aagames.movieroulette.R;
 import com.aagames.movieroulette.objects.MovieItem;
 import com.aagames.movieroulette.objects.MovieList;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -30,6 +31,9 @@ public class SendAdapter extends RecyclerView.Adapter<SendAdapter.SendViewHolder
     ArrayList<MovieList> categories;
     String recieverId;
     ArrayList<MovieList> recieverCat;
+    String username;
+    String id;
+    FirebaseAuth auth;
 
 
 
@@ -38,6 +42,8 @@ public class SendAdapter extends RecyclerView.Adapter<SendAdapter.SendViewHolder
         this.categories= categories;
         this.recieverId = recieverId;
         recieverCat = new ArrayList<>();
+        auth = FirebaseAuth.getInstance();
+        id = auth.getUid();
 
     }
 
@@ -54,6 +60,8 @@ public class SendAdapter extends RecyclerView.Adapter<SendAdapter.SendViewHolder
     public void onBindViewHolder(@NonNull final SendViewHolder holder, final int position) {
 
         holder.categoryNameBtn.setText(categories.get(position).getName());
+
+
 
         FirebaseDatabase.getInstance().getReference().child( "users" ).child(recieverId).child("movielists").addValueEventListener(new ValueEventListener() {
             @Override
@@ -77,6 +85,23 @@ public class SendAdapter extends RecyclerView.Adapter<SendAdapter.SendViewHolder
 
             }
         });
+        FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child( "profile" ).addValueEventListener( new ValueEventListener() {
+            @Override
+            public void onDataChange( @NonNull DataSnapshot dataSnapshot ) {
+
+                String theName = dataSnapshot.child( "name" ).getValue( String.class );
+
+                username = theName;
+
+
+
+            }
+
+            @Override
+            public void onCancelled( @NonNull DatabaseError databaseError ) {
+
+            }
+        });
 
         holder.categoryNameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +110,8 @@ public class SendAdapter extends RecyclerView.Adapter<SendAdapter.SendViewHolder
                 recieverCat.add(categories.get(position));
 
                 FirebaseDatabase.getInstance().getReference("users").child(recieverId).child("movielists").setValue(recieverCat);
+                FirebaseDatabase.getInstance().getReference().child("users").child(recieverId).child("notifications").push().setValue(username+" shared "+categories.get(position).getName()+" list with you");
+
             }
         });
 

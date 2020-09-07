@@ -63,6 +63,7 @@ public class AddFriendDialog extends AppCompatDialogFragment {
                 {
                     UserItem friend1 =  ( UserItem ) shot.getValue( UserItem.class );
 
+
                     //lists.add( list );
                     friendsList.add( friend1);
 
@@ -122,13 +123,16 @@ public class AddFriendDialog extends AppCompatDialogFragment {
                                 if(n == null){
                                     Toast.makeText(builder.getContext(),"User does not exist",Toast.LENGTH_LONG).show();
 
+                                }else if(check(friendsList,listName)){
+                                    Toast.makeText(builder.getContext(),"User is already your friend",Toast.LENGTH_LONG).show();
+
                                 }else{
                                     friendItem.setMail(n.getMail());
                                     friendItem.setId(n.getId());
                                     friendsList.add(friendItem);
                                     listRef.setValue(friendsList);
 
-                                    FirebaseDatabase.getInstance().getReference().child("users").child(n.getId()).child("notifications").push().setValue(username+" Seni arkadaş olarak ekledi");
+                                    FirebaseDatabase.getInstance().getReference().child("users").child(n.getId()).child("notifications").push().setValue(username+" added you as a friend.");
                                 }
 
 
@@ -160,4 +164,29 @@ public class AddFriendDialog extends AppCompatDialogFragment {
         return  builder.create();
 
     }
+
+    public boolean check(ArrayList<UserItem> users, String newUser){
+
+        if(users.size()==0){
+
+           return false;
+        }else{
+
+            int pos = 0;
+            while ( pos < users.size()-1 && !((users.get(pos).getUsername()).equals(newUser) )){
+                pos++;
+            }
+
+            return ( (users.get(pos).getUsername()).equals(newUser));
+
+        }
+
+
+    }
 }
+
+
+
+
+
+

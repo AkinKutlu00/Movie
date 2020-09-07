@@ -29,7 +29,6 @@ import com.aagames.movieroulette.adapters.MovieAdapterBig;
 import com.aagames.movieroulette.adapters.MovieAdapterPlus;
 import com.aagames.movieroulette.objects.MovieItem;
 import com.aagames.movieroulette.objects.MovieList;
-import com.aagames.movieroulette.objects.UserItem;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -126,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         showNotif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
             }
         });
 
