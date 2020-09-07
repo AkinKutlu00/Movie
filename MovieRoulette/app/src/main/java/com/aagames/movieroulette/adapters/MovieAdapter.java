@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aagames.movieroulette.objects.MovieItem;
 import com.aagames.movieroulette.R;
 import com.aagames.movieroulette.objects.MovieList;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -64,8 +65,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         final MovieItem currentItem = mMovieList.get(position);
 
         if(currentItem.getRevealed()){
-            holder.movieImageView.setImageResource(R.drawable.back);
-            holder.movieImageView.setBackgroundColor(Color.rgb(255, 0, 0));;
+            Glide.with(context).load("https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY209_CR0,0,140,209_AL_.jpg").into( holder.movieImageView);
+
+            //holder.movieImageView.setImageResource(R.drawable.back);
+           // holder.movieImageView.setBackgroundColor(Color.rgb(255, 0, 0));;
         }else{
             holder.movieImageView.setImageResource(R.drawable.back2);
             holder.movieImageView.setBackgroundColor(Color.rgb(0, 0, 255));;
@@ -110,8 +113,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 TextView tvname=(TextView)view.findViewById(R.id.name);
                 tvname.setText(mMovieList.get(position).getName());
 
-                TextView tvfoto=(TextView)view.findViewById(R.id.foto);
-                tvfoto.setText(mMovieList.get(position).getImageCode());
+               ImageView imageView =(ImageView) view.findViewById(R.id.imageView);
+               // tvfoto.setText(mMovieList.get(position).getImageCode());
+
+                Glide.with(view).load("https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY209_CR0,0,140,209_AL_.jpg").into(imageView);
+
 
                 Button close = (Button) view.findViewById(R.id.close);
 

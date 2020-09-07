@@ -83,8 +83,8 @@ public class MovieAdapterPlus extends RecyclerView.Adapter<MovieAdapterPlus.Movi
                 TextView tvname=(TextView)view.findViewById(R.id.name);
                 tvname.setText(mMovieList.get(position).getName());
 
-                TextView tvfoto=(TextView)view.findViewById(R.id.foto);
-                tvfoto.setText(mMovieList.get(position).getImageCode());
+                //TextView tvfoto=(TextView)view.findViewById(R.id.foto);
+               // tvfoto.setText(mMovieList.get(position).getImageCode());
 
                 Button close = (Button) view.findViewById(R.id.close);
 

@@ -252,8 +252,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                    TextView tvname=(TextView)view.findViewById(R.id.name);
                    tvname.setText(movieList1.get(randomNumber).getName());
 
-                   TextView tvfoto=(TextView)view.findViewById(R.id.foto);
-                   tvfoto.setText(movieList1.get(randomNumber).getImageCode());
+                   //TextView tvfoto=(TextView)view.findViewById(R.id.foto);
+                   //tvfoto.setText(movieList1.get(randomNumber).getImageCode());
 
                    Button close = (Button) view.findViewById(R.id.close);
 
