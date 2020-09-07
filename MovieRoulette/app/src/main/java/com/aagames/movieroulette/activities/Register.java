@@ -33,7 +33,7 @@ public class Register extends AppCompatActivity {
     EditText emailEt;
     EditText password;
     EditText confirm;
-    ArrayList<UserItem> userlist;
+    ArrayList<String> userlist;
 
     Button register;
 
@@ -103,9 +103,7 @@ public class Register extends AppCompatActivity {
                 {
                     UserItem friend1 =  ( UserItem ) shot.getValue( UserItem.class );
 
-                    System.out.println("bum "+ friend1.getUsername());
-                    //lists.add( list );
-                    userlist.add( friend1);
+                    userlist.add( friend1.getUsername());
 
                 }
 
@@ -208,7 +206,7 @@ public class Register extends AppCompatActivity {
 
            }
 
-    public boolean check(ArrayList<UserItem> users, String newUser){
+    public boolean check(ArrayList<String> users, String newUser){
 
         if(users.size()==0){
 
@@ -216,11 +214,11 @@ public class Register extends AppCompatActivity {
         }else{
 
             int pos = 0;
-            while ( pos < users.size()-1 && !((users.get(pos).getUsername()).equals(newUser) )){
+            while ( pos < users.size()-1 && !((users.get(pos)).equals(newUser) )){
                 pos++;
             }
 
-            return ( (users.get(pos).getUsername()).equals(newUser));
+            return ( (users.get(pos)).equals(newUser));
 
         }
 

@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.aagames.movieroulette.AddCatDialog;
@@ -227,70 +228,76 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 int randomNumber;
+               if( movieList1.size()==revealedNumber){
+                   Toast.makeText(getApplicationContext(),"You have watched all the movies on this list.",Toast.LENGTH_SHORT).show();
+
+               }else{
+                   do{
 
 
-                do{
+                       randomNumber = new Random().nextInt(movieList1.size());
+                       System.out.println("Random"+randomNumber+"-----"+movieList1.size());
+                   }while (movieList1.get(randomNumber).getRevealed() );
 
-
-                    randomNumber = new Random().nextInt(movieList1.size());
-                    System.out.println("Random"+randomNumber+"-----"+movieList1.size());
-                }while (movieList1.get(randomNumber).getRevealed() );
-
-                //Toast.makeText(getApplicationContext()," "+ randomNumber,Toast.LENGTH_SHORT).show();
+                   //Toast.makeText(getApplicationContext()," "+ randomNumber,Toast.LENGTH_SHORT).show();
 
 
 
-                //movieList1.get(randomNumber).setRevealed(true);
-                //Toast.makeText(getApplicationContext()," "+ randomNumber,Toast.LENGTH_SHORT).show();
+                   //movieList1.get(randomNumber).setRevealed(true);
+                   //Toast.makeText(getApplicationContext()," "+ randomNumber,Toast.LENGTH_SHORT).show();
 
-                final Dialog builder=new Dialog(v.getContext());
-                View view= LayoutInflater.from(MainActivity.this).inflate(R.layout.moviepopup,null);
+                   final Dialog builder=new Dialog(v.getContext());
+                   View view= LayoutInflater.from(MainActivity.this).inflate(R.layout.moviepopup,null);
 
-                TextView tvname=(TextView)view.findViewById(R.id.name);
-                tvname.setText(movieList1.get(randomNumber).getName());
+                   TextView tvname=(TextView)view.findViewById(R.id.name);
+                   tvname.setText(movieList1.get(randomNumber).getName());
 
-                TextView tvfoto=(TextView)view.findViewById(R.id.foto);
-                tvfoto.setText(movieList1.get(randomNumber).getImageCode());
+                   TextView tvfoto=(TextView)view.findViewById(R.id.foto);
+                   tvfoto.setText(movieList1.get(randomNumber).getImageCode());
 
-                Button close = (Button) view.findViewById(R.id.close);
-
-
-                close.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        builder.dismiss();
+                   Button close = (Button) view.findViewById(R.id.close);
 
 
-                    }
-                });
+                   close.setOnClickListener(new View.OnClickListener() {
+                       @Override
+                       public void onClick(View v) {
+                           builder.dismiss();
 
 
-                Button yes = (Button) view.findViewById(R.id.yes);
-                Button no = (Button) view.findViewById(R.id.no);
-
-                final int finalRandomNumber = randomNumber;
-                yes.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //movieList1.get(randomNumber).setRevealed(true);
-                        myRef.child(listName).child("movies").child(finalRandomNumber +"").child("revealed").setValue(true);
-
-                        builder.dismiss();
-
-                    }
-                });
+                       }
+                   });
 
 
-                no.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        myRef.child(listName).child("movies").child(finalRandomNumber +"").child("revealed").setValue(false);
-                        builder.dismiss();
-                    }
-                });
-                builder.setContentView(view);
+                   Button yes = (Button) view.findViewById(R.id.yes);
+                   Button no = (Button) view.findViewById(R.id.no);
 
-                builder.show();
+                   final int finalRandomNumber = randomNumber;
+                   yes.setOnClickListener(new View.OnClickListener() {
+                       @Override
+                       public void onClick(View v) {
+                           //movieList1.get(randomNumber).setRevealed(true);
+                           myRef.child(listName).child("movies").child(finalRandomNumber +"").child("revealed").setValue(true);
+
+                           builder.dismiss();
+
+                       }
+                   });
+
+
+                   no.setOnClickListener(new View.OnClickListener() {
+                       @Override
+                       public void onClick(View v) {
+                           myRef.child(listName).child("movies").child(finalRandomNumber +"").child("revealed").setValue(false);
+                           builder.dismiss();
+                       }
+                   });
+                   builder.setContentView(view);
+
+                   builder.show();
+
+               }
+
+
 
             }
         });

@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="350dp"
     android:layout_height="500dp"
     android:orientation="vertical"
@@ -18,15 +19,25 @@
             android:gravity="center"
             android:textSize="30dp"
             android:text="Movie Name"
-            android:layout_weight="1"
+            android:layout_weight="30"
             android:id="@+id/name"
             />
 
+
+
+        <ImageButton
+            android:id="@+id/fav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:src="@drawable/ic_baseline_star_border_24"
+            tools:ignore="VectorDrawableCompat" />
+
         <Button
             android:id="@+id/close"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="100"
             android:text="X" />
     </LinearLayout>
 
