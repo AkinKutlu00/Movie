@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aagames.movieroulette.objects.MovieItem;
 import com.aagames.movieroulette.R;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -87,6 +89,9 @@ public class MovieAdapterPlus extends RecyclerView.Adapter<MovieAdapterPlus.Movi
                // tvfoto.setText(mMovieList.get(position).getImageCode());
 
                 Button close = (Button) view.findViewById(R.id.close);
+                ImageView imageView =(ImageView) view.findViewById(R.id.imageViewPop);
+
+                Glide.with(context).load("https://image.tmdb.org/t/p/original"+mMovieList.get(position).getImageCode()).into( imageView);
 
 
                 close.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +106,7 @@ public class MovieAdapterPlus extends RecyclerView.Adapter<MovieAdapterPlus.Movi
 
                 Button yes = (Button) view.findViewById(R.id.yes);
                 Button no = (Button) view.findViewById(R.id.no);
+                ImageButton star = (ImageButton) view.findViewById(R.id.fav);
 
                 yes.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -113,7 +119,7 @@ public class MovieAdapterPlus extends RecyclerView.Adapter<MovieAdapterPlus.Movi
                     }
                 });
 
-
+               
                 no.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -122,9 +128,6 @@ public class MovieAdapterPlus extends RecyclerView.Adapter<MovieAdapterPlus.Movi
                     }
                 });
                 builder.setContentView(view);
-
-
-
 
 
                 builder.show();
