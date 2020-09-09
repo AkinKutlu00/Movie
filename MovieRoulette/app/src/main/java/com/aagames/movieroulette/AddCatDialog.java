@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.aagames.movieroulette.activities.NewCategory;
+import com.aagames.movieroulette.activities.SearchActivity;
 import com.aagames.movieroulette.objects.MovieList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -60,7 +61,7 @@ public class AddCatDialog extends AppCompatDialogFragment {
                         listRef.child( ""+catNumber ).setValue(new MovieList(listName));
 
 
-                        final Intent intent = new Intent( view.getContext(), NewCategory.class);
+                        final Intent intent = new Intent( view.getContext(), SearchActivity.class);
                         intent.putExtra( "listname", listName);
                         intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
                         startActivity(intent);
@@ -73,11 +74,7 @@ public class AddCatDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
-                })
-        ;
-
-
-
+                });
 
         return  builder.create();
 
