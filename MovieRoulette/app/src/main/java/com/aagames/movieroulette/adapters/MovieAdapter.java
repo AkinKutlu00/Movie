@@ -66,7 +66,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         if(currentItem.getRevealed()){
             holder.movieNameTv.setText("");
-            Glide.with(context).load("https://image.tmdb.org/t/p/original"+currentItem.getImageCode()).into( holder.movieImageView);
+
+            if(currentItem.getImageCode()!=null&&currentItem.getImageCode()!=""&&currentItem.getImageCode()!="null"){
+                Glide.with(context).load("https://image.tmdb.org/t/p/original"+currentItem.getImageCode()).into( holder.movieImageView);
+
+            }else{
+                System.out.println("HOOOOP");
+            }
             holder.movieImageView.setBackgroundColor(Color.rgb(0, 0, 0));;
 
             //holder.movieImageView.setImageResource(R.drawable.back);
