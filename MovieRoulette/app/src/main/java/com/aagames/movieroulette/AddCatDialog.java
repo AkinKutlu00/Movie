@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.aagames.movieroulette.activities.NewCategory;
-import com.aagames.movieroulette.activities.SearchActivity;
 import com.aagames.movieroulette.objects.MovieList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;

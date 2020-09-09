@@ -73,6 +73,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             }else{
                 System.out.println("HOOOOP");
             }
+
             holder.movieImageView.setBackgroundColor(Color.rgb(0, 0, 0));;
 
             //holder.movieImageView.setImageResource(R.drawable.back);

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -71,6 +72,7 @@ public class MovieSearchShowAdapter extends RecyclerView.Adapter<MovieSearchShow
                 ml.addMovie(movieItem);
                 FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists").child(""+currentPosition).setValue(ml);
 
+                Toast.makeText(context,currentItem.getOriginalTitle()+" is added to "+ ml.getName()+" list",Toast.LENGTH_LONG ).show();
 
             }
         });

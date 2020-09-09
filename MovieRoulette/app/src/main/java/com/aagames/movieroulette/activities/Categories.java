@@ -94,10 +94,6 @@ public class Categories extends AppCompatActivity {
             }
         });
 
-
-
-
-
         myRecyclerView = findViewById(R.id.rv);
         //myRecyclerView.setHasFixedSize(true);
         mLayoutManager = new GridLayoutManager(this,3);
