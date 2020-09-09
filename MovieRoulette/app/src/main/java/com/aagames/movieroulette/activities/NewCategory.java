@@ -202,7 +202,7 @@ public class NewCategory extends AppCompatActivity {
 
         TmdbClient myInterface = retrofit.create(TmdbClient.class);
 
-        Call<MovieSearchListRecieved> call=  myInterface.getMovies(ConstantTmdb.APIKEY,query);
+        Call<MovieSearchListRecieved> call=  myInterface.getMovies(ConstantTmdb.APIKEY,query,false);
 
         call.enqueue(new Callback<MovieSearchListRecieved>() {
             @Override

@@ -106,7 +106,7 @@ public class MovieAdapterPlus extends RecyclerView.Adapter<MovieAdapterPlus.Movi
 
                 Button yes = (Button) view.findViewById(R.id.yes);
                 Button no = (Button) view.findViewById(R.id.no);
-                ImageButton star = (ImageButton) view.findViewById(R.id.fav);
+                //ImageButton star = (ImageButton) view.findViewById(R.id.fav);
 
                 yes.setOnClickListener(new View.OnClickListener() {
                     @Override

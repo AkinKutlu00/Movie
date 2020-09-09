@@ -62,7 +62,12 @@ public class MovieSearchShowAdapter extends RecyclerView.Adapter<MovieSearchShow
 
         final MovieResult currentItem = movieResultsArray.get(position);
 
-        holder.movieNameTv.setText(currentItem.getOriginalTitle() + "(" +currentItem.getReleasedate().substring(0,4) + ") " +"Vote Rate: "+currentItem.getVoteAverage());
+        if(currentItem!= null){
+            holder.movieNameTv.setText(currentItem.getOriginalTitle() + "(" +currentItem.getReleasedate() + ") " +"Vote Rate: "+currentItem.getVoteAverage());
+
+
+        }
+
 
         holder.addBtn.setOnClickListener(new View.OnClickListener() {
             @Override

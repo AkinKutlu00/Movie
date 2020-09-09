@@ -148,7 +148,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
                 Button yes = (Button) view.findViewById(R.id.yes);
                 Button no = (Button) view.findViewById(R.id.no);
-                ImageButton star = (ImageButton) view.findViewById(R.id.fav);
+               // ImageButton star = (ImageButton) view.findViewById(R.id.fav);
 
                 yes.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -172,13 +172,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 });
 
 
-                star.setOnClickListener(new View.OnClickListener() {
+                /*star.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         fav.addMovie(currentItem);
                         database.getReference("users").child(id).child("movielists").child("0").setValue(fav);
                     }
-                });
+                });*/
 
                 builder.setContentView(view);
                 builder.show();

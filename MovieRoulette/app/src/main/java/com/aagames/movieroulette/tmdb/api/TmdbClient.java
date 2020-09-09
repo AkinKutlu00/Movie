@@ -12,7 +12,9 @@ import retrofit2.http.Query;
         @GET("search/movie")
         Call<MovieSearchListRecieved> getMovies(
                 @Query("api_key") String api_key,
-                @Query("query") String query
+                @Query("query") String query,
+                @Query("include_adult") boolean include_adult
+
         );
 
     }
