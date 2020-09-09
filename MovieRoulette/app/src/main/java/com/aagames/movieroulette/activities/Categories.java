@@ -63,9 +63,8 @@ public class Categories extends AppCompatActivity {
         newCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //openDialog();
-                startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+                openDialog();
+                //startActivity(new Intent(getApplicationContext(), NewCategory.class));
 
 
             }
