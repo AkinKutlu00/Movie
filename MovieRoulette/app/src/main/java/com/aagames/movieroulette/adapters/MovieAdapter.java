@@ -65,17 +65,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         final MovieItem currentItem = mMovieList.get(position);
 
         if(currentItem.getRevealed()){
-            Glide.with(context).load("https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY209_CR0,0,140,209_AL_.jpg").into( holder.movieImageView);
+
+            Glide.with(context).load("https://image.tmdb.org/t/p/original"+currentItem.getImageCode()).into( holder.movieImageView);
 
             //holder.movieImageView.setImageResource(R.drawable.back);
            // holder.movieImageView.setBackgroundColor(Color.rgb(255, 0, 0));;
         }else{
+            holder.movieNameTv.setText(""+(position+1));
             holder.movieImageView.setImageResource(R.drawable.back2);
+
             holder.movieImageView.setBackgroundColor(Color.rgb(0, 0, 255));;
         }
 
 
-        holder.movieNameTv.setText(""+(position+1));
+
 
         fav = new MovieList();
 
@@ -113,10 +116,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 TextView tvname=(TextView)view.findViewById(R.id.name);
                 tvname.setText(mMovieList.get(position).getName());
 
-               ImageView imageView =(ImageView) view.findViewById(R.id.imageView);
+               ImageView imageView =(ImageView) view.findViewById(R.id.imageViewPop);
                // tvfoto.setText(mMovieList.get(position).getImageCode());
 
-                Glide.with(view).load("https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY209_CR0,0,140,209_AL_.jpg").into(imageView);
+                Glide.with(context).load("https://image.tmdb.org/t/p/original"+currentItem.getImageCode()).into( imageView);
+
+               // Glide.with(view).load("https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY209_CR0,0,140,209_AL_.jpg").into(imageView);
 
 
                 Button close = (Button) view.findViewById(R.id.close);

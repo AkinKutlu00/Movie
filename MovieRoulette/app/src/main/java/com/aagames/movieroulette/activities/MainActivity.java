@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ import com.aagames.movieroulette.adapters.MovieAdapterBig;
 import com.aagames.movieroulette.adapters.MovieAdapterPlus;
 import com.aagames.movieroulette.objects.MovieItem;
 import com.aagames.movieroulette.objects.MovieList;
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -76,11 +79,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     final String id = auth.getUid();
     final ArrayList<MovieList> allList = new ArrayList<>();
-    MovieList movies = new MovieList( "Mubi" );
 
     DatabaseReference myRef;
-    final DatabaseReference myRef5 = FirebaseDatabase.getInstance().getReference().child( "ListOfMovies" ).child( "mubi" );
-    final ArrayList<Object> movieLists = new ArrayList<>();
 
 
 
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         myToggle.syncState();
         NavigationView navigationView = findViewById( R.id.navigation_view );
         navigationView.setNavigationItemSelectedListener( this );
-        View headerView = navigationView.getHeaderView( 0 );
+        final View headerView = navigationView.getHeaderView( 0 );
 
         final TextView name = ( TextView ) headerView.findViewById( R.id.name );
         final TextView mail = ( TextView ) headerView.findViewById( R.id.mail );
@@ -220,8 +220,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         myRecyclerView = findViewById(R.id.myRecyclerView);
         myRecyclerView.setHasFixedSize(true);
         mLayoutManager = new GridLayoutManager(this,10);
+        
 
-
+        //ImageView imageView = findViewById(R.id.imageView);
+        //Glide.with(MainActivity.this).load("https://image.tmdb.org/t/p/original/5KCVkau1HEl7ZzfPsKAPM0sMiKc.jpg").into(imageView);
         random = findViewById(R.id.randomButton);
         random.setOnClickListener(new View.OnClickListener() {
 
@@ -243,19 +245,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
+
                    //movieList1.get(randomNumber).setRevealed(true);
                    //Toast.makeText(getApplicationContext()," "+ randomNumber,Toast.LENGTH_SHORT).show();
 
                    final Dialog builder=new Dialog(v.getContext());
+
+
+
                    View view= LayoutInflater.from(MainActivity.this).inflate(R.layout.moviepopup,null);
+
+
+                  // Glide.with(view.getContext()).load("https://image.tmdb.org/t/p/original/5KCVkau1HEl7ZzfPsKAPM0sMiKc.jpg").into( imageView);
 
                    TextView tvname=(TextView)view.findViewById(R.id.name);
                    tvname.setText(movieList1.get(randomNumber).getName());
+
 
                    //TextView tvfoto=(TextView)view.findViewById(R.id.foto);
                    //tvfoto.setText(movieList1.get(randomNumber).getImageCode());
 
                    Button close = (Button) view.findViewById(R.id.close);
+
+
 
 
                    close.setOnClickListener(new View.OnClickListener() {
@@ -292,6 +304,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                        }
                    });
                    builder.setContentView(view);
+
 
                    builder.show();
 
