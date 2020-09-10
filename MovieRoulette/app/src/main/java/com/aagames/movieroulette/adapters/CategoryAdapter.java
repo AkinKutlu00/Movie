@@ -1,5 +1,6 @@
 package com.aagames.movieroulette.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.aagames.movieroulette.activities.Categories;
 import com.aagames.movieroulette.activities.MainActivity;
 import com.aagames.movieroulette.activities.NewCategory;
 import com.aagames.movieroulette.R;
@@ -49,8 +51,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MovieV
                 Intent intent = new Intent( context, MainActivity.class );
 
                 intent.putExtra( "categoryname", categories.get(position));
-                intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 context.startActivity( intent );
+                ((Activity)v.getContext()).finish();
+
+
+
 
 
             }
@@ -61,7 +68,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MovieV
                 Intent intent = new Intent( context, NewCategory.class );
 
                 intent.putExtra( "listname", categories.get(position));
-                intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity( intent );
 
                 return false;

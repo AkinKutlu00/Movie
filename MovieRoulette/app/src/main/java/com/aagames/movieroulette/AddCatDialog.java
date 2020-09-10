@@ -64,6 +64,8 @@ public class AddCatDialog extends AppCompatDialogFragment {
                         intent.putExtra( "listname", listName);
                         intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
                         startActivity(intent);
+                        getActivity().finish();
+                        // this.finish();
                         //System.out.println(catNumber+" alley");
 
                     }

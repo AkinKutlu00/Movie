@@ -11,14 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.NotificationActivity" />
-        <activity android:name=".FriendsActivity" />
-        <activity android:name=".activities.SendList" />
-        <activity android:name=".activities.Categories" />
-        <activity android:name=".activities.NewCategory" />
-        <activity android:name=".activities.Register" />
-        <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.Login">
+        <activity android:name=".activities.NotificationActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".FriendsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.SendList" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.Categories" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.NewCategory" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.Register" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.Login" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
