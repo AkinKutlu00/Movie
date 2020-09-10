@@ -166,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         myRef = FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists");
 
+
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -202,6 +203,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 revealedNumber=0;
                 for(int i=0;i<movieList1.size();i++){
+                    //Glide.with(getApplicationContext()).load("https://image.tmdb.org/t/p/original"+ movieList1.get(i).getImageCode()).preload();
 
                     if(movieList1.get(i).getRevealed()){
                         revealedNumber++;
@@ -257,8 +259,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                    View view= LayoutInflater.from(MainActivity.this).inflate(R.layout.moviepopup,null);
 
+                   ImageView imageView = view.findViewById(R.id.imageViewPop);
 
-                  // Glide.with(view.getContext()).load("https://image.tmdb.org/t/p/original/5KCVkau1HEl7ZzfPsKAPM0sMiKc.jpg").into( imageView);
+
+                   Glide.with(getApplicationContext()).load("https://image.tmdb.org/t/p/original"+movieList1.get(randomNumber).getImageCode()).into( imageView);
 
                    TextView tvname=(TextView)view.findViewById(R.id.name);
                    tvname.setText(movieList1.get(randomNumber).getName());

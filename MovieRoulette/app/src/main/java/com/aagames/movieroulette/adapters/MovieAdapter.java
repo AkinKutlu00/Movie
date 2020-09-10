@@ -20,6 +20,7 @@ import com.aagames.movieroulette.objects.MovieItem;
 import com.aagames.movieroulette.R;
 import com.aagames.movieroulette.objects.MovieList;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -74,7 +75,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             holder.movieNameTv.setText("");
 
             if(currentItem.getImageCode()!=null&&currentItem.getImageCode()!=""&&currentItem.getImageCode()!="null"){
-                Glide.with(context).load("https://image.tmdb.org/t/p/original"+currentItem.getImageCode()).into( holder.movieImageView);
+               System.out.println("iamgecode: " +currentItem.getImageCode());
+                Glide.with(context).load("https://image.tmdb.org/t/p/original"+currentItem.getImageCode()).apply(new RequestOptions().override(200, 200)).into( holder.movieImageView);
 
             }else{
                 System.out.println("HOOOOP");
@@ -123,6 +125,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         holder.cardView.setLayoutParams(new RelativeLayout.LayoutParams(width/12, height/15));
 
+       // Glide.with(context).load("https://image.tmdb.org/t/p/original"+currentItem.getImageCode()).preload();
 
         holder.movieImageView.setOnClickListener(new View.OnClickListener() {
             @Override

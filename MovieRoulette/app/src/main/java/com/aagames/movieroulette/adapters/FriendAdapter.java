@@ -55,7 +55,6 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
         final UserItem currentItem = friendList.get(position);
 
         holder.emailTv.setText(currentItem.getUsername());
-        holder.usernameTv.setText(currentItem.getMail());
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
