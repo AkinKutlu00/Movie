@@ -72,12 +72,43 @@ public class MovieSearchShowAdapter extends RecyclerView.Adapter<MovieSearchShow
         holder.addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MovieItem movieItem = new MovieItem(currentItem.getOriginalTitle() ,currentItem.getPosterPath() ,currentItem.getId());
+                int counter;
+                counter=ml.getMovies().size();
 
-                ml.addMovie(movieItem);
-                FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists").child(""+currentPosition).setValue(ml);
+                if(counter>0){
+                    counter--;
 
-                Toast.makeText(context,currentItem.getOriginalTitle()+" is added to "+ ml.getName()+" list",Toast.LENGTH_LONG ).show();
+                    while (counter>0 && !(ml.getMovies().get(counter).getMovieid() == (currentItem.getId()))  ){
+                        counter--;
+                    }
+
+                    if(ml.getMovies().get(counter).getMovieid() == (currentItem.getId())){
+                        Toast.makeText(context,"Error: "+ currentItem.getOriginalTitle()+" is already in "+ ml.getName()+" list",Toast.LENGTH_LONG ).show();
+
+                    }else{
+
+                        MovieItem movieItem = new MovieItem(currentItem.getOriginalTitle() ,currentItem.getPosterPath() ,currentItem.getId());
+
+                        ml.addMovie(movieItem);
+                        FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists").child(""+currentPosition).setValue(ml);
+
+                        Toast.makeText(context,currentItem.getOriginalTitle()+" is added to "+ ml.getName()+" list",Toast.LENGTH_LONG ).show();
+
+                    }
+
+                }else{
+
+
+                    MovieItem movieItem = new MovieItem(currentItem.getOriginalTitle() ,currentItem.getPosterPath() ,currentItem.getId());
+
+                    ml.addMovie(movieItem);
+                    FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child("movielists").child(""+currentPosition).setValue(ml);
+
+                    Toast.makeText(context,currentItem.getOriginalTitle()+" is added to "+ ml.getName()+" list",Toast.LENGTH_LONG ).show();
+
+
+                }
+
 
             }
         });

@@ -11,13 +11,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="30dp"
+            android:maxLines="2"
+            android:textSize="15sp"
             android:text="Movie Name"
             android:layout_weight="30"
             android:id="@+id/name"
@@ -48,10 +49,10 @@
         android:id="@+id/imageViewPop"/>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:id="@+id/have"
-        android:textSize="27dp"
+        android:textSize="20dp"
         android:text="Have you watched this movie?"/>
 
     <LinearLayout
@@ -73,6 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="No" />
+
 
     </LinearLayout>
 

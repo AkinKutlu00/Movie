@@ -57,6 +57,8 @@ public class AddCatDialog extends AppCompatDialogFragment {
 
 
                         listName=listNameEt.getText().toString();
+
+                        
                         listRef.child( ""+catNumber ).setValue(new MovieList(listName));
 
 

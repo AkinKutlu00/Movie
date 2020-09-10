@@ -325,7 +325,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-       height = displayMetrics.heightPixels;
+        height = displayMetrics.heightPixels;
         width = displayMetrics.widthPixels;
 
 
