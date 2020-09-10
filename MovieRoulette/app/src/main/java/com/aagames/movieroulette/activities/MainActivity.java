@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     int height;
     int width;
 
+    ArrayList<String> movieListNames;
+
 
 
     @Override
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         final String titleName = getIntent().getStringExtra( "categoryname" );
         toolbar.setTitle(titleName);
-
+        movieListNames= new ArrayList<>();
 
         myDrawerLayout = (DrawerLayout)findViewById( R.id.drawer );
         myToggle = new ActionBarDrawerToggle(this, myDrawerLayout, R.string.open, R.string.close );
@@ -178,6 +180,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 {
                     MovieList thelist = list.getValue( MovieList.class );
                     allList.add( thelist );
+                    movieListNames.add(thelist.getName());
                 }
 
 
@@ -383,7 +386,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity( new Intent(getApplicationContext(), Categories.class ) );
                 break;
             case R.id.newCategory:
-                AddCatDialog catDialog = new AddCatDialog(allList.size());
+                AddCatDialog catDialog = new AddCatDialog(allList.size(), movieListNames);
                 catDialog.show(getSupportFragmentManager(),"example");
                 break;
             case R.id.friends:

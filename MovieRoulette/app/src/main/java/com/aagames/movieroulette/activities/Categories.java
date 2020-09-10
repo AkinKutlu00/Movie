@@ -132,7 +132,7 @@ public class Categories extends AppCompatActivity {
 
 
     public void openDialog() {
-        AddCatDialog catDialog = new AddCatDialog(categories.size());
+        AddCatDialog catDialog = new AddCatDialog(categories.size(),categories);
         catDialog.show(getSupportFragmentManager(),"example");
     }
 

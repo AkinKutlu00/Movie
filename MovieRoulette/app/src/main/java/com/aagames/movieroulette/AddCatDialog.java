@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class AddCatDialog extends AppCompatDialogFragment {
 
     private EditText listNameEt;
@@ -26,11 +29,13 @@ public class AddCatDialog extends AppCompatDialogFragment {
     int catNumber;
     String id;
     FirebaseAuth auth;
+    ArrayList<String> movieListNames;
 
 
-    public AddCatDialog(int catNumber) {
+    public AddCatDialog(int catNumber, ArrayList<String> movieListNames) {
         super();
         this.catNumber = catNumber;
+        this.movieListNames = movieListNames;
     }
 
     @NonNull
@@ -57,16 +62,44 @@ public class AddCatDialog extends AppCompatDialogFragment {
 
 
                         listName=listNameEt.getText().toString();
+                        int counter;
+                        counter = 0;
 
-                        
-                        listRef.child( ""+catNumber ).setValue(new MovieList(listName));
+                        if(movieListNames.size()>0){
+
+                            while (counter<movieListNames.size()-1 && !(movieListNames.get(counter).equals(listName) )){
+                                counter++;
+                            }
+
+                            if(movieListNames.get(counter).equals(listName)){
+                                Toast.makeText(view.getContext(),"Error: "+ listName +" already exist ",Toast.LENGTH_LONG ).show();
 
 
-                        final Intent intent = new Intent( view.getContext(), NewCategory.class);
-                        intent.putExtra( "listname", listName);
-                        intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
-                        startActivity(intent);
-                        getActivity().finish();
+                            }else{
+                                listRef.child( ""+catNumber ).setValue(new MovieList(listName));
+
+                                final Intent intent = new Intent( view.getContext(), NewCategory.class);
+                                intent.putExtra( "listname", listName);
+                                intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+                                startActivity(intent);
+                                getActivity().finish();
+
+                            }
+
+                        }else{
+                            listRef.child( ""+catNumber ).setValue(new MovieList(listName));
+
+                            final Intent intent = new Intent( view.getContext(), NewCategory.class);
+                            intent.putExtra( "listname", listName);
+                            intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+                            startActivity(intent);
+                            getActivity().finish();
+
+                        }
+
+
+
+
                         // this.finish();
                         //System.out.println(catNumber+" alley");
 
