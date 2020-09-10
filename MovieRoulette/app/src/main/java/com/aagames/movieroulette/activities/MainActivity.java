@@ -13,6 +13,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -81,7 +82,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     final ArrayList<MovieList> allList = new ArrayList<>();
 
     DatabaseReference myRef;
-
+    int height;
+    int width;
 
 
 
@@ -218,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         myRecyclerView = findViewById(R.id.myRecyclerView);
-        myRecyclerView.setHasFixedSize(true);
+       // myRecyclerView.setHasFixedSize(true);
         mLayoutManager = new GridLayoutManager(this,10);
         
 
@@ -317,14 +319,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+       height = displayMetrics.heightPixels;
+        width = displayMetrics.widthPixels;
 
 
 
         this.getSupportActionBar().setDisplayHomeAsUpEnabled( true );
         this.getSupportActionBar().setHomeAsUpIndicator( R.drawable.ic_menu_white_24dp);
         getSupportActionBar().setTitle(titleName+" (0/0)");
-        mAdapter = new MovieAdapter(getApplicationContext(),movieList1,listName);
+        mAdapter = new MovieAdapterPlus(getApplicationContext(),movieList1,listName,height,width);
 
 
 
@@ -394,16 +399,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void updateRv(){
         if(mod == 0){
-            mLayoutManager = new GridLayoutManager(getApplicationContext(),10);
+
+            mLayoutManager = new GridLayoutManager(getApplicationContext(),3);
             myRecyclerView.setLayoutManager(mLayoutManager);
-            mAdapter = new MovieAdapter(getApplicationContext(),movieList1, listName);
+            mAdapter = new MovieAdapterPlus(getApplicationContext(),movieList1,listName,height,width);
             myRecyclerView.setAdapter(mAdapter);
 
 
         }else if(mod == 1){
-            mLayoutManager = new GridLayoutManager(getApplicationContext(),3);
+
+            mLayoutManager = new GridLayoutManager(getApplicationContext(),10);
             myRecyclerView.setLayoutManager(mLayoutManager);
-            mAdapter = new MovieAdapterPlus(getApplicationContext(),movieList1,listName);
+            mAdapter = new MovieAdapter(getApplicationContext(),movieList1, listName, height,width);
             myRecyclerView.setAdapter(mAdapter);
 
 

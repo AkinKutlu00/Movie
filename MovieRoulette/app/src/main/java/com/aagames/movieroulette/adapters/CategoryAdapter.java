@@ -3,14 +3,17 @@ package com.aagames.movieroulette.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aagames.movieroulette.activities.Categories;
@@ -24,11 +27,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MovieV
 
     Context context;
     ArrayList<String> categories;
+    int height;
+   int  width;
 
-
-    public CategoryAdapter(Context context, ArrayList<String> categories){
+    public CategoryAdapter(Context context, ArrayList<String> categories, int height, int width){
         this.context=context;
         this.categories= categories;
+        this.height = height;
+        this.width = width;
     }
 
 
@@ -42,6 +48,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MovieV
 
     @Override
     public void onBindViewHolder(@NonNull final MovieViewHolder holder, final int position) {
+
+
+        holder.cardView.setLayoutParams(new RelativeLayout.LayoutParams(width/4, height/6));
 
         holder.categoryNameBtn.setText(categories.get(position));
 
@@ -87,15 +96,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MovieV
         public Button categoryNameBtn;
         public TextView categoryNameTv;
         public ImageView categoryImageView;
+        public CardView cardView;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryNameTv = itemView.findViewById(R.id.nameMovie);
             categoryImageView = itemView.findViewById(R.id.movieImage);
             categoryNameBtn = itemView.findViewById(R.id.open);
-
+            cardView = itemView.findViewById(R.id.cardView);
         }
     }
+
+
 
 
 }

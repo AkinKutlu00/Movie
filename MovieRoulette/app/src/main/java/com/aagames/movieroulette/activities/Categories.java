@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 
@@ -54,8 +55,16 @@ public class Categories extends AppCompatActivity {
         categories = new ArrayList<>();
         adminCategories = new ArrayList<>();
 
-        mAdapter = new CategoryAdapter(getApplicationContext(), categories);
 
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+         int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+
+
+        mAdapter = new CategoryAdapter(getApplicationContext(), categories, height, width);
 
 
         newCategory = (Button) findViewById(R.id.newcat);
@@ -93,6 +102,9 @@ public class Categories extends AppCompatActivity {
 
             }
         });
+
+
+
 
         myRecyclerView = findViewById(R.id.rv);
         //myRecyclerView.setHasFixedSize(true);

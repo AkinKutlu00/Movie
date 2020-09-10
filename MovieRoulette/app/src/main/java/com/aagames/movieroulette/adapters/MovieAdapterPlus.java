@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aagames.movieroulette.objects.MovieItem;
@@ -31,14 +33,18 @@ public class MovieAdapterPlus extends RecyclerView.Adapter<MovieAdapterPlus.Movi
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Imdb");
     private FirebaseAuth auth;
+    int height;
+    int  width;
 
 
-    public MovieAdapterPlus(Context context, ArrayList<MovieItem> movieList, String child){
+    public MovieAdapterPlus(Context context, ArrayList<MovieItem> movieList, String child, int height, int width){
         auth = FirebaseAuth.getInstance();
         String id = auth.getUid();
         this.context=context;
         mMovieList= movieList;
         myRef = database.getReference("users").child(id).child("movielists").child(child).child("movies");
+        this.height = height;
+        this.width = width;
 
 
     }
@@ -56,6 +62,11 @@ public class MovieAdapterPlus extends RecyclerView.Adapter<MovieAdapterPlus.Movi
     public void onBindViewHolder(@NonNull final MovieViewHolder holder, final int position) {
 
         MovieItem currentItem = mMovieList.get(position);
+
+        holder.cardView.setLayoutParams(new RelativeLayout.LayoutParams((int) (width/(3.5)),(int) ((height)/11.5)));
+
+         //holder.movieNameTv.setTextSize((height-100)*0.024f);
+
 
         if(currentItem.getRevealed()){
             holder.movieImageView.setImageResource(R.drawable.back2);
@@ -143,7 +154,7 @@ public class MovieAdapterPlus extends RecyclerView.Adapter<MovieAdapterPlus.Movi
     }
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder{
-
+        public CardView cardView;
         public TextView movieNameTv;
         public ImageView movieImageView;
 
@@ -151,6 +162,7 @@ public class MovieAdapterPlus extends RecyclerView.Adapter<MovieAdapterPlus.Movi
             super(itemView);
             movieNameTv = itemView.findViewById(R.id.nameMovie);
             movieImageView = itemView.findViewById(R.id.movieImage);
+            cardView =  itemView.findViewById(R.id.cardViewPlus);
 
         }
     }
