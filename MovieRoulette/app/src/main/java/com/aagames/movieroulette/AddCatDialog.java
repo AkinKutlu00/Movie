@@ -82,7 +82,7 @@ public class AddCatDialog extends AppCompatDialogFragment {
                                 intent.putExtra( "listname", listName);
                                 intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
                                 startActivity(intent);
-                                getActivity().finish();
+                                //getActivity().finish();
 
                             }
 
@@ -93,7 +93,7 @@ public class AddCatDialog extends AppCompatDialogFragment {
                             intent.putExtra( "listname", listName);
                             intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
                             startActivity(intent);
-                            getActivity().finish();
+                            //getActivity().finish();
 
                         }
 
