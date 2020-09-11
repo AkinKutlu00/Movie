@@ -11,10 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MoviePopUp"
-            android:theme="@style/AppTheme.CustomTheme"
+        <activity android:name=".activities.WatchedPopUp"
+            android:theme="@style/AppTheme.CustomTheme" ></activity>
+        <activity
+            android:name=".activities.MoviePopUp"
             android:screenOrientation="portrait"
-            ></activity>
+            android:theme="@style/AppTheme.CustomTheme" />
         <activity
             android:name=".activities.NotificationActivity"
             android:screenOrientation="portrait" />

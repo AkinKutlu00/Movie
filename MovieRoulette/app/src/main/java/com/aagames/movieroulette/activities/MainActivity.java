@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DatabaseReference myRef;
     int height;
     int width;
+     String titleName;
 
     ArrayList<String> movieListNames;
 
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mod=0;
         listName = "1";
         final ArrayList<MovieItem> movieList2 = new ArrayList<>();
-
+        titleName = getIntent().getStringExtra( "categoryname" );
 
         toolbar = findViewById( R.id.toolBar );
         setSupportActionBar( toolbar );
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         databaseReferenceProfile = FirebaseDatabase.getInstance().getReference().child( "users" ).child(id).child( "profile" );
 
-        final String titleName = getIntent().getStringExtra( "categoryname" );
+
         toolbar.setTitle(titleName);
         movieListNames= new ArrayList<>();
 
@@ -302,6 +303,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 updateRv();
                     break;
+            case R.id.point:
+                Intent intent = new Intent( getApplicationContext(), WatchedPopUp.class );
+                intent.putExtra("title",currentList.getName());
+                startActivity( intent);
+                break;
 
         }
 

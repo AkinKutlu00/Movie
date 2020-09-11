@@ -60,7 +60,7 @@ public class MoviePopUp extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         final int height = displayMetrics.heightPixels;
         final int width = displayMetrics.widthPixels;
-
+        getWindow().setLayout((int) (width*.9),(int) (height*.7));
         moreInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +79,8 @@ public class MoviePopUp extends Activity {
                 }else{
                     infoTv.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
                     moreInfo.setText("More Info");
+                    infoTv.setText("");
+                    crewTv.setText("");
                     mod--;
                     getWindow().setLayout((int) (width*.9),(int) (height*.7));
 
@@ -96,7 +98,7 @@ public class MoviePopUp extends Activity {
         Glide.with(getApplicationContext()).load("https://image.tmdb.org/t/p/original"+movieImageCode).override((int)(width*.625),(int)(height*.55)).into( imageView);
 
 
-        getWindow().setLayout((int) (width*.9),(int) (height*.7));
+
 
         close = findViewById(R.id.close);
 
@@ -173,11 +175,9 @@ public class MoviePopUp extends Activity {
 
                 MovieResult results= response.body();
 
+                overview = overview + "Vote Average:"+ results.getVoteAverage()+"\n";
 
-
-                overview = overview+"Vote Average:"+ results.getVoteAverage()+"\n";
-
-                overview= overview+"Overview: "+results.getOverview();
+                overview= overview + "Overview: "+results.getOverview();
                 infoTv.setText(overview);
 
 
