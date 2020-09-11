@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -91,6 +92,7 @@ public class MovieAdapterPlus extends RecyclerView.Adapter<MovieAdapterPlus.Movi
             @Override
             public void onClick(View v) {
                 final Dialog builder=new Dialog(v.getContext());
+                builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 View view=LayoutInflater.from(context).inflate(R.layout.moviepopup,null);
 
                 TextView tvname=(TextView)view.findViewById(R.id.name);

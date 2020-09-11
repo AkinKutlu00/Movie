@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/colorAccent"
+    android:background="@color/colorPrimary"
     android:layout_gravity="center">
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/name"
@@ -25,7 +26,6 @@
             android:text="Movie Name"
             android:textSize="15sp"
             android:textStyle="bold" />
-
 
 
         <ImageButton
@@ -46,22 +46,22 @@
 
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:id="@+id/imageViewPop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:id="@+id/imageViewPop"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:id="@+id/have"
-        android:textSize="20dp"
-        android:text="Have you watched this movie?"/>
+        app:layout_constraintBottom_toTopOf="@+id/have"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
             android:id="@+id/yes"
@@ -69,14 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
 
-            android:text="Yes" />
+            android:text="More Info" />
 
-        <Button
-            android:id="@+id/no"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="No" />
 
 
     </LinearLayout>
@@ -84,4 +78,4 @@
 
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -248,74 +249,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                        System.out.println("Random"+randomNumber+"-----"+movieList1.size());
                    }while (movieList1.get(randomNumber).getRevealed() );
 
-                   //Toast.makeText(getApplicationContext()," "+ randomNumber,Toast.LENGTH_SHORT).show();
+                   Intent intent = new Intent(MainActivity.this, MoviePopUp.class);
+                   intent.putExtra( "MovieName", movieList1.get(randomNumber).getName());
+                   intent.putExtra( "MovieID", movieList1.get(randomNumber).getMovieid());
+                   intent.putExtra( "MovieImageCode", movieList1.get(randomNumber).getImageCode());
+                   intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+                   startActivity(intent);
 
 
 
 
-                   //movieList1.get(randomNumber).setRevealed(true);
-                   //Toast.makeText(getApplicationContext()," "+ randomNumber,Toast.LENGTH_SHORT).show();
-
-                   final Dialog builder=new Dialog(v.getContext());
 
 
-
-                   View view= LayoutInflater.from(MainActivity.this).inflate(R.layout.moviepopup,null);
-
-                   ImageView imageView = view.findViewById(R.id.imageViewPop);
-
-
-                   Glide.with(getApplicationContext()).load("https://image.tmdb.org/t/p/original"+movieList1.get(randomNumber).getImageCode()).into( imageView);
-
-                   TextView tvname=(TextView)view.findViewById(R.id.name);
-                   tvname.setText(movieList1.get(randomNumber).getName());
-
-
-                   //TextView tvfoto=(TextView)view.findViewById(R.id.foto);
-                   //tvfoto.setText(movieList1.get(randomNumber).getImageCode());
-
-                   Button close = (Button) view.findViewById(R.id.close);
-
-
-
-
-                   close.setOnClickListener(new View.OnClickListener() {
-                       @Override
-                       public void onClick(View v) {
-                           builder.dismiss();
-
-
-                       }
-                   });
-
-
-                   Button yes = (Button) view.findViewById(R.id.yes);
-                   Button no = (Button) view.findViewById(R.id.no);
-
-                   final int finalRandomNumber = randomNumber;
-                   yes.setOnClickListener(new View.OnClickListener() {
-                       @Override
-                       public void onClick(View v) {
-                           //movieList1.get(randomNumber).setRevealed(true);
-                           myRef.child(listName).child("movies").child(finalRandomNumber +"").child("revealed").setValue(true);
-
-                           builder.dismiss();
-
-                       }
-                   });
-
-
-                   no.setOnClickListener(new View.OnClickListener() {
-                       @Override
-                       public void onClick(View v) {
-                           myRef.child(listName).child("movies").child(finalRandomNumber +"").child("revealed").setValue(false);
-                           builder.dismiss();
-                       }
-                   });
-                   builder.setContentView(view);
-
-
-                   builder.show();
 
                }
 
