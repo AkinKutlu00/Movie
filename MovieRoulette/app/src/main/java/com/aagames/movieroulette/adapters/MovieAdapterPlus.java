@@ -66,6 +66,7 @@ public class MovieAdapterPlus extends RecyclerView.Adapter<MovieAdapterPlus.Movi
 
         holder.cardView.setLayoutParams(new RelativeLayout.LayoutParams((int) (width/(3.5)),(int) ((height)/11.5)));
 
+
          //holder.movieNameTv.setTextSize((height-100)*0.024f);
 
 

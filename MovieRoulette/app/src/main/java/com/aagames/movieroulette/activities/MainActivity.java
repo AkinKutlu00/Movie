@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         myRecyclerView = findViewById(R.id.myRecyclerView);
-       // myRecyclerView.setHasFixedSize(true);
+        myRecyclerView.setHasFixedSize(true);
         mLayoutManager = new GridLayoutManager(this,10);
         
 
