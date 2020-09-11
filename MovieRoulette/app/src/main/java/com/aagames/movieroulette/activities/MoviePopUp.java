@@ -41,6 +41,10 @@ public class MoviePopUp extends Activity {
 
         infoTv.setVisibility(View.INVISIBLE);
         infoTv.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        final int height = displayMetrics.heightPixels;
+        final int width = displayMetrics.widthPixels;
 
         moreInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,15 +53,17 @@ public class MoviePopUp extends Activity {
                 if(mod==0){
                     infoTv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                     infoTv.setVisibility(View.VISIBLE);
-                    infoTv.setPadding(20,20,20,0);
+                    infoTv.setPadding(50,20,20,0);
                     moreInfo.setText("Less Info");
                     mod++;
+                    getWindow().setLayout((int) (width*.9),(int) (height));
 
                 }else{
                     infoTv.setVisibility(View.INVISIBLE);
                     infoTv.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
                     moreInfo.setText("More Info");
                     mod--;
+                    getWindow().setLayout((int) (width*.9),(int) (height*.7));
 
                 }
 
@@ -71,15 +77,12 @@ public class MoviePopUp extends Activity {
         textViewName.setText(movieName);
 
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int  width = displayMetrics.widthPixels;
+
 
         Glide.with(getApplicationContext()).load("https://image.tmdb.org/t/p/original"+movieImageCode).override((int)(width*.625),(int)(height*.55)).into( imageView);
 
 
-        getWindow().setLayout((int) (width*.9),(int) (height*.85));
+        getWindow().setLayout((int) (width*.9),(int) (height*.7));
 
         close = findViewById(R.id.close);
 

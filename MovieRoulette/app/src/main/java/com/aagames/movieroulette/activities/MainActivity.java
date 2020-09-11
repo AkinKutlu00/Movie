@@ -9,32 +9,25 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.aagames.movieroulette.AddCatDialog;
-import com.aagames.movieroulette.FriendsActivity;
 import com.aagames.movieroulette.R;
 import com.aagames.movieroulette.adapters.MovieAdapter;
 import com.aagames.movieroulette.adapters.MovieAdapterBig;
 import com.aagames.movieroulette.adapters.MovieAdapterPlus;
 import com.aagames.movieroulette.objects.MovieItem;
 import com.aagames.movieroulette.objects.MovieList;
-import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;

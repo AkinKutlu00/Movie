@@ -49,8 +49,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MovieV
     @Override
     public void onBindViewHolder(@NonNull final MovieViewHolder holder, final int position) {
 
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(width/4, height/6);
+        layoutParams.setMargins(50,0,0,50);
 
-        holder.cardView.setLayoutParams(new RelativeLayout.LayoutParams(width/4, height/6));
+        holder.cardView.setLayoutParams(layoutParams);
 
         holder.categoryNameBtn.setText(categories.get(position));
 
