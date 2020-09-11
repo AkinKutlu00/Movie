@@ -1,4 +1,4 @@
-package com.aagames.movieroulette.tmdb.data;
+package com.aagames.movieroulette.tmdb.data.search;
 
 
 import java.util.List;
@@ -6,6 +6,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class MovieResult {
+    @SerializedName("overview")
+    @Expose
+    private String overview;
 
     @SerializedName("vote_average")
     @Expose
@@ -107,5 +110,13 @@ public class MovieResult {
 
     public void setVoteAverage(double voteAverage) {
         this.voteAverage = voteAverage;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
     }
 }

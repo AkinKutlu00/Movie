@@ -1,5 +1,6 @@
-package com.aagames.movieroulette.tmdb.data;
+package com.aagames.movieroulette.tmdb.data.search;
 
+import com.aagames.movieroulette.tmdb.data.search.MovieResult;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

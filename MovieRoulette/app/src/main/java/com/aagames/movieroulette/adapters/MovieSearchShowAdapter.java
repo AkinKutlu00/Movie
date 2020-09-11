@@ -2,12 +2,10 @@ package com.aagames.movieroulette.adapters;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,11 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aagames.movieroulette.R;
-import com.aagames.movieroulette.activities.SendList;
 import com.aagames.movieroulette.objects.MovieItem;
 import com.aagames.movieroulette.objects.MovieList;
-import com.aagames.movieroulette.objects.UserItem;
-import com.aagames.movieroulette.tmdb.data.MovieResult;
+import com.aagames.movieroulette.tmdb.data.search.MovieResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
