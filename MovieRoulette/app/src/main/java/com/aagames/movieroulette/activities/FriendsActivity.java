@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.aagames.movieroulette.AddFriendDialog;
+import com.aagames.movieroulette.dialogs.AddFriendDialog;
 import com.aagames.movieroulette.R;
 import com.aagames.movieroulette.adapters.FriendAdapter;
 import com.aagames.movieroulette.objects.UserItem;

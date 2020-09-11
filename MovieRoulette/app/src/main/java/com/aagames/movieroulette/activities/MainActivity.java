@@ -21,7 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.aagames.movieroulette.AddCatDialog;
+import com.aagames.movieroulette.dialogs.AddCatDialog;
 import com.aagames.movieroulette.R;
 import com.aagames.movieroulette.adapters.MovieAdapter;
 import com.aagames.movieroulette.adapters.MovieAdapterBig;

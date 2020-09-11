@@ -1,4 +1,4 @@
-package com.aagames.movieroulette;
+package com.aagames.movieroulette.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.aagames.movieroulette.R;
 import com.aagames.movieroulette.activities.NewCategory;
 import com.aagames.movieroulette.objects.MovieList;
 import com.google.firebase.auth.FirebaseAuth;
