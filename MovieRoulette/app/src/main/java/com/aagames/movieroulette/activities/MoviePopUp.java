@@ -4,6 +4,8 @@ package com.aagames.movieroulette.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +15,7 @@ import com.bumptech.glide.Glide;
 public class MoviePopUp extends Activity {
     TextView textViewName;
     ImageView imageView;
+    Button close;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,5 +43,18 @@ public class MoviePopUp extends Activity {
 
 
         getWindow().setLayout((int) (width*.9),(int) (height*.85));
+
+        close = findViewById(R.id.close);
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                MoviePopUp.super.onBackPressed();
+
+            }
+        });
+
+
     }
 }

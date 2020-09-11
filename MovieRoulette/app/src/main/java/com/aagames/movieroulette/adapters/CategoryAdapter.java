@@ -60,8 +60,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MovieV
                 Intent intent = new Intent( context, MainActivity.class );
 
                 intent.putExtra( "categoryname", categories.get(position));
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity( intent );
                 ((Activity)v.getContext()).finish();
 
