@@ -23,7 +23,7 @@ import com.aagames.movieroulette.R;
 
 import java.util.ArrayList;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MovieViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
     Context context;
     ArrayList<String> categories;
@@ -40,14 +40,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MovieV
 
     @NonNull
     @Override
-    public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_card_view, parent, false);
-        MovieViewHolder mvh = new MovieViewHolder(v);
+        CategoryViewHolder mvh = new CategoryViewHolder(v);
         return mvh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MovieViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final CategoryViewHolder holder, final int position) {
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(width/4, height/6);
         layoutParams.setMargins(20,0,0,50);
@@ -92,14 +92,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MovieV
         return categories.size();
     }
 
-    public static class MovieViewHolder extends RecyclerView.ViewHolder{
+    public static class CategoryViewHolder extends RecyclerView.ViewHolder{
 
         public Button categoryNameBtn;
         public TextView categoryNameTv;
         public ImageView categoryImageView;
         public CardView cardView;
 
-        public MovieViewHolder(@NonNull View itemView) {
+        public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryNameTv = itemView.findViewById(R.id.nameMovie);
             categoryImageView = itemView.findViewById(R.id.movieImage);

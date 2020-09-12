@@ -3,6 +3,7 @@
 <item android:id="@+id/profile" android:title="Profile" android:icon="@drawable/ic_launcher_background"/>
     <item android:id="@+id/categories" android:title="Categories" android:icon="@drawable/ic_launcher_background"/>
     <item android:id="@+id/newCategory" android:title="New Category" android:icon="@drawable/ic_launcher_background"/>
+    <item android:id="@+id/uptodate" android:title="Up-to-date Categories" android:icon="@drawable/ic_launcher_background"/>
     <item android:id="@+id/friends" android:title="Friends" android:icon="@drawable/ic_launcher_background" />
     <item android:id="@+id/log_out" android:title="Log Out" android:icon="@drawable/ic_launcher_background"/>
 </menu>

@@ -34,5 +34,13 @@ import retrofit2.http.Query;
 
         );
 
+        @GET("movie/{list_name}")
+        Call<MovieSearchListRecieved> getList(
+                @Path("list_name") String list_name,
+                @Query("api_key") String api_key
+
+        );
+
+
     }
 

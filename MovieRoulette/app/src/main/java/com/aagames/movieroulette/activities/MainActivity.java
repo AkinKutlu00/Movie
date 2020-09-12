@@ -232,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 int randomNumber;
-               if( movieList1.size()==revealedNumber){
+               if( movieList1.size() == revealedNumber){
                    Toast.makeText(getApplicationContext(),"You have watched all the movies on this list.",Toast.LENGTH_SHORT).show();
 
                }else{
@@ -249,10 +249,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                    intent.putExtra( "MovieImageCode", movieList1.get(randomNumber).getImageCode());
                    intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
                    startActivity(intent);
-
-
-
-
 
 
 
@@ -331,6 +327,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 AddCatDialog catDialog = new AddCatDialog(allList.size(), movieListNames);
                 catDialog.show(getSupportFragmentManager(),"example");
                 break;
+            case R.id.uptodate:
+                startActivity( new Intent(getApplicationContext(), UpToDateCategories.class ) );
+                break;
             case R.id.friends:
                 startActivity( new Intent(getApplicationContext(), FriendsActivity.class ) );
                 break;
@@ -367,6 +366,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
+    private long mBackPressed;
+
+    @Override
+    public void onBackPressed()
+    {
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis())
+        {
+            super.onBackPressed();
+            return;
+        }
+        else { Toast.makeText(getBaseContext(), "Tap back button in order to exit", Toast.LENGTH_SHORT).show(); }
+
+        mBackPressed = System.currentTimeMillis();
+    }
 
 
 
