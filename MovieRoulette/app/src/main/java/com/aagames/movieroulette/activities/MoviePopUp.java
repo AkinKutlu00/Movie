@@ -175,9 +175,14 @@ public class MoviePopUp extends Activity {
 
                 MovieResult results= response.body();
 
+                overview = overview + "Genres: "+results.getGenres()+"\n";
+
                 overview = overview + "Vote Average:"+ results.getVoteAverage()+"\n";
 
                 overview= overview + "Overview: "+results.getOverview();
+
+
+
                 infoTv.setText(overview);
 
 

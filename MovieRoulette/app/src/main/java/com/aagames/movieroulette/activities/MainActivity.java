@@ -298,7 +298,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 updateRv();
                 break;
             case R.id.right:
-                if(mod < 2){
+                if(mod < 1){
                     mod++;
                 }
                 updateRv();
@@ -364,12 +364,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mAdapter = new MovieAdapter(getApplicationContext(),movieList1, listName, height,width);
             myRecyclerView.setAdapter(mAdapter);
 
-
-        }else if(mod == 2){
-            mLayoutManager = new GridLayoutManager(getApplicationContext(),1);
-            myRecyclerView.setLayoutManager(mLayoutManager);
-            mAdapter = new MovieAdapterBig(getApplicationContext(),movieList1,listName);
-            myRecyclerView.setAdapter(mAdapter);
 
         }
 
