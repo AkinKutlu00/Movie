@@ -293,16 +293,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.left:
                 if(mod > 0){
+                    item.setIcon(R.drawable.ic_baseline_apps_24);
                     mod--;
-                }
-                updateRv();
-                break;
-            case R.id.right:
-                if(mod < 1){
+                }else {
+                    item.setIcon(R.drawable.ic_baseline_movie_24);
                     mod++;
                 }
                 updateRv();
-                    break;
+                break;
             case R.id.point:
                 Intent intent = new Intent( getApplicationContext(), WatchedPopUp.class );
                 intent.putExtra("title",currentList.getName());

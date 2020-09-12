@@ -22,17 +22,15 @@ public class MovieAdapterBig extends RecyclerView.Adapter<MovieAdapterBig.MovieV
     private ArrayList<MovieItem> mMovieList;
 
     Context context;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef;
     private FirebaseAuth auth;
 
 
-    public MovieAdapterBig(Context context, ArrayList<MovieItem> movieList, String child){
+    public MovieAdapterBig(Context context, ArrayList<MovieItem> movieList){
         auth = FirebaseAuth.getInstance();
         String id = auth.getUid();
         this.context=context;
         mMovieList= movieList;
-        myRef = database.getReference("users").child(id).child("movielists").child(child).child("movies");
+
 
     }
 
@@ -66,12 +64,16 @@ public class MovieAdapterBig extends RecyclerView.Adapter<MovieAdapterBig.MovieV
             public void onClick(View v) {
                 MovieItem currentItem = mMovieList.get(position);
                 if(currentItem.getRevealed()){
-                    myRef.child(position+"").child("revealed").setValue(false);
+                    currentItem.setRevealed(false);
+                    holder.movieNameCb.setChecked(false);
+                   // myRef.child(position+"").child("revealed").setValue(false);
 
                     //holder.movieNameTv.setTextColor(Color.rgb(255, 0, 0));
                     //holder.movieImageView.setBackgroundColor(Color.rgb(255, 0, 0));;
                 }else{
-                    myRef.child(position+"").child("revealed").setValue(true);
+                    currentItem.setRevealed(true);
+                    holder.movieNameCb.setChecked(true);
+                    //myRef.child(position+"").child("revealed").setValue(true);
 
                     //holder.movieImageView.setBackgroundColor(Color.rgb(0, 0, 255));;
                 }
