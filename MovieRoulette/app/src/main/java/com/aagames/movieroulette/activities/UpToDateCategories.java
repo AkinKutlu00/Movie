@@ -43,14 +43,14 @@ public class UpToDateCategories extends AppCompatActivity implements View.OnClic
 
         list = new ArrayList<>();
 
-        Button one = (Button) findViewById(R.id.now);
-        one.setOnClickListener(this); // calling onClick() method
-        Button two = (Button) findViewById(R.id.popular);
-        two.setOnClickListener(this);
-        Button three = (Button) findViewById(R.id.top);
-        three.setOnClickListener(this);
-        Button four = (Button) findViewById(R.id.upcoming);
-        four.setOnClickListener(this);
+        Button now = (Button) findViewById(R.id.now);
+        now.setOnClickListener(this); // calling onClick() method
+        Button popular = (Button) findViewById(R.id.popular);
+        popular.setOnClickListener(this);
+        Button top = (Button) findViewById(R.id.top);
+        top.setOnClickListener(this);
+        Button upcoming = (Button) findViewById(R.id.upcoming);
+        upcoming.setOnClickListener(this);
 
 
 

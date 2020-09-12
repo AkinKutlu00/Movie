@@ -1,5 +1,6 @@
 package com.aagames.movieroulette.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -61,6 +62,7 @@ public class UpToDateMoviesAdapter extends RecyclerView.Adapter<UpToDateMoviesAd
         return mvh;
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull final UpToDateMoviesViewHolder holder, final int position) {
 
@@ -71,8 +73,11 @@ public class UpToDateMoviesAdapter extends RecyclerView.Adapter<UpToDateMoviesAd
         layoutParams.setMargins(10,0,0,20);
 
         holder.cardView.setLayoutParams(layoutParams);
+        //holder.cardView.setBackgroundColor(R.color.colorBackground);
+
         holder.movieNameTv.setText(currentItem.getOriginalTitle());
         holder.movieNameTv.setTextSize(15);
+        holder.movieNameTv.setTextColor(R.color.colorStraw);
 
 
             holder.movieImageView.setImageResource(R.drawable.back);
