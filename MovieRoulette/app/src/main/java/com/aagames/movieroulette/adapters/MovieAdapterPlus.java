@@ -68,7 +68,7 @@ public class MovieAdapterPlus extends RecyclerView.Adapter<MovieAdapterPlus.Movi
 
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams((int) (width/(3.5)),(int) ((height)/11.5));
-        layoutParams.setMargins(30,0,0,20);
+        layoutParams.setMargins(10,0,0,20);
 
         holder.cardView.setLayoutParams(layoutParams);
 

@@ -80,7 +80,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
             if(currentItem.getImageCode()!=null&&currentItem.getImageCode()!=""&&currentItem.getImageCode()!="null"){
                System.out.println("iamgecode: " +currentItem.getImageCode());
-                Glide.with(context).load("https://image.tmdb.org/t/p/original"+currentItem.getImageCode()).apply(new RequestOptions().override(200, 200)).into( holder.movieImageView);
+                Glide.with(context).load("https://image.tmdb.org/t/p/original"+currentItem.getImageCode()).apply(new RequestOptions().override(100, 150)).into( holder.movieImageView);
 
             }else{
                 System.out.println("HOOOOP");
@@ -128,8 +128,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         });
 
 
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(width / 12, height / 15);
-        layoutParams.setMargins(10,0,0,10);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(width / 12, (height-100) / 15);
+        layoutParams.setMargins(5,0,0,10);
 
         holder.cardView.setLayoutParams(layoutParams);
 
