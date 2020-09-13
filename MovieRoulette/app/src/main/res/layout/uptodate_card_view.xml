@@ -6,6 +6,7 @@
     app:cardCornerRadius="4dp"
     android:id="@+id/cardViewPlus"
 
+
     >
 
 
@@ -14,7 +15,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackground">
+        android:background="@color/colorTransparent"
+       >
 
         <TextView
             android:id="@+id/nameMovie"
@@ -26,7 +28,8 @@
             android:textSize="12sp"
             android:fadingEdgeLength="115dp"
 
-            android:maxLines="1"
+            android:minLines="3"
+            android:maxLines="3"
 
             android:textStyle="bold"
             android:textColor="#FFFFFF"/>
@@ -39,7 +42,7 @@
 
             android:layout_gravity="center"
             android:layout_marginBottom="16dp"
-            android:background="@color/colorBackground" />
+            android:background="@color/colorTransparent" />
 
 
     </LinearLayout>

@@ -58,6 +58,7 @@
 
                 android:id="@+id/randomButton"
                 android:layout_weight="10"
+                style="@style/AppTheme"
                 android:text="Random Movie"
                 android:textSize="20sp" />
 

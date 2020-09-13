@@ -145,7 +145,7 @@ public class MoviePopUp extends Activity {
                         counter=4;
                     }
 
-                    crew= crew+"Crew :";
+                    crew= crew+"Crew : ";
                     for(int i=0; i<counter; i++){
 
                             crew= crew+results.getCast().get(i).getName()+", ";
@@ -177,9 +177,11 @@ public class MoviePopUp extends Activity {
 
                 overview = overview + "Genres: "+results.getGenres()+"\n";
 
-                overview = overview + "Vote Average:"+ results.getVoteAverage()+"\n";
+                overview = overview + "Vote Average: "+ results.getVoteAverage()+"\n";
 
-                overview= overview + "Overview: "+results.getOverview();
+                overview= overview + "Overview: "+results.getOverview()+"\n";
+
+                overview = overview + "Run Time: "+results.getRuntime()+" minute";
 
 
 

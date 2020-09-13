@@ -10,6 +10,10 @@ public class MovieResult {
     @Expose
     private String overview;
 
+    @SerializedName("runtime")
+    @Expose
+    private int runtime;
+
     @SerializedName("vote_average")
     @Expose
     private double voteAverage;
@@ -132,5 +136,13 @@ public class MovieResult {
 
     public void setGenres(List<Genre> genres) {
         this.genres = genres;
+    }
+
+    public int getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(int runtime) {
+        this.runtime = runtime;
     }
 }
