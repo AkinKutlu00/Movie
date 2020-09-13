@@ -57,7 +57,7 @@ public class UpToDateMoviesAdapter extends RecyclerView.Adapter<UpToDateMoviesAd
     @NonNull
     @Override
     public UpToDateMoviesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_card_view, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.uptodate_card_view, parent, false);
         UpToDateMoviesViewHolder mvh = new UpToDateMoviesViewHolder(v);
         return mvh;
     }
@@ -68,24 +68,17 @@ public class UpToDateMoviesAdapter extends RecyclerView.Adapter<UpToDateMoviesAd
 
         final MovieResult currentItem = mMovieList.get(position);
 
-
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams((int) (width/(3.5)),(int) ((height)/11.5));
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams((int) (width/(2.3)),(int) ((height)/4));
         layoutParams.setMargins(10,0,0,20);
 
         holder.cardView.setLayoutParams(layoutParams);
-        //holder.cardView.setBackgroundColor(R.color.colorBackground);
+
 
         holder.movieNameTv.setText(currentItem.getOriginalTitle());
         holder.movieNameTv.setTextSize(15);
-        holder.movieNameTv.setTextColor(R.color.colorStraw);
 
+        Glide.with(context).load("https://image.tmdb.org/t/p/original"+currentItem.getPosterPath()).apply(new RequestOptions().override(200, 300)).into( holder.movieImageView);
 
-            holder.movieImageView.setImageResource(R.drawable.back);
-            //holder.movieNameTv.setTextColor(Color.rgb(255, 0, 0));
-            //holder.movieImageView.setBackgroundColor(Color.rgb(255, 0, 0));;
-
-
-        // Glide.with(context).load("https://image.tmdb.org/t/p/original"+currentItem.getImageCode()).preload();
 
         holder.movieImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +110,7 @@ public class UpToDateMoviesAdapter extends RecyclerView.Adapter<UpToDateMoviesAd
             super(itemView);
             movieNameTv = itemView.findViewById(R.id.nameMovie);
             movieImageView = itemView.findViewById(R.id.movieImage);
-            cardView =  itemView.findViewById(R.id.movieNormalcardView);
+            cardView =  itemView.findViewById(R.id.cardViewPlus);
 
         }
     }

@@ -90,7 +90,7 @@ public class UpToDateCategories extends AppCompatActivity implements View.OnClic
 
 
                    System.out.println("Doğru mu:"+results.getMovieResults().get(0).getOriginalTitle());
-                    mLayoutManager = new GridLayoutManager(getApplicationContext(),3);
+                    mLayoutManager = new GridLayoutManager(getApplicationContext(),2);
                     recyclerView.setLayoutManager(mLayoutManager);
                     mAdapter = new UpToDateMoviesAdapter(getApplicationContext(),list,height,width);
                     recyclerView.setAdapter(mAdapter);
