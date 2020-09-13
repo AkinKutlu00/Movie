@@ -17,7 +17,6 @@
             android:theme="@style/AppTheme.CustomTheme" />
         <activity
             android:name=".activities.MoviePopUp"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme" />
         <activity
             android:name=".activities.NotificationActivity"
