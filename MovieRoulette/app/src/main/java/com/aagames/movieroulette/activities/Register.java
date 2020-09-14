@@ -134,6 +134,7 @@ public class Register extends AppCompatActivity {
 
 
 
+
                 // if one of the editTexts is empty
                 if ( TextUtils.isEmpty(email) || TextUtils.isEmpty(passwordString) || TextUtils.isEmpty(confirmPassword) || TextUtils.isEmpty(nameString) )
                 {
@@ -149,8 +150,11 @@ public class Register extends AppCompatActivity {
 
                         register.setVisibility( View.VISIBLE );
                     }
+                    else if(nameString.contains(" ")){
+                        Toast.makeText(Register.this, "username can not contains any blank", Toast.LENGTH_SHORT ).show();
 
-                    else if(check(userlist, nameString)){
+                        register.setVisibility( View.VISIBLE );
+                    } else if(check(userlist, nameString)){
                         Toast.makeText(Register.this, "username is already using", Toast.LENGTH_SHORT ).show();
 
                         register.setVisibility( View.VISIBLE );

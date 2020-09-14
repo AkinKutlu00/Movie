@@ -319,6 +319,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (menuItem.getItemId()){
             case R.id.profile:
+                startActivity( new Intent(getApplicationContext(), Profile.class ) );
                 break;
             case R.id.categories:
                 startActivity( new Intent(getApplicationContext(), Categories.class ) );
