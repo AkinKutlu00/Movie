@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -51,6 +52,16 @@ public class UpToDateCategories extends AppCompatActivity implements View.OnClic
         top.setOnClickListener(this);
         Button upcoming = (Button) findViewById(R.id.upcoming);
         upcoming.setOnClickListener(this);
+
+        Button main = (Button) findViewById(R.id.mainBtn);
+        main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity( new Intent(getApplicationContext(), Categories.class) );
+                finish();
+            }
+        });
+
 
 
 

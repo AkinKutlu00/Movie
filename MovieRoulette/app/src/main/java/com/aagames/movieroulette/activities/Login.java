@@ -54,7 +54,7 @@ public class Login extends AppCompatActivity {
 
         if ( auth.getCurrentUser() != null )
         {
-            startActivity( new Intent(getApplicationContext(), Categories.class) );
+            startActivity( new Intent(getApplicationContext(), UpToDateCategories.class) );
             finish();
         }
 
@@ -88,7 +88,7 @@ public class Login extends AppCompatActivity {
                             // if log in succesful
                             if ( task.isSuccessful() ) {
                                 Toast.makeText( Login.this, "Log in Succesful.", Toast.LENGTH_SHORT ).show();
-                                startActivity( new Intent( getApplicationContext(), Categories.class ) );
+                                startActivity( new Intent( getApplicationContext(), UpToDateCategories.class ) );
                                 finish();
                             }
 

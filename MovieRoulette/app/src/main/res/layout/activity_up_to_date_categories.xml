@@ -17,6 +17,14 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/mainBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/AppTheme"
+            android:text="Main" />
+
+        <Button
             android:id="@+id/now"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
