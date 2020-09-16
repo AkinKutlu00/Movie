@@ -22,12 +22,12 @@ public class MovieList {
     public MovieList ( String name)
     {
         this.name= name;
-        movies = new ArrayList();
+        movies = new ArrayList<>();
     }
 
     public MovieList ()
     {
-        movies = new ArrayList();
+        movies = new ArrayList<>();
     }
 
     // methods

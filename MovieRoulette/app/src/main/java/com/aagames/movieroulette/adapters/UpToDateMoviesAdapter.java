@@ -68,7 +68,7 @@ public class UpToDateMoviesAdapter extends RecyclerView.Adapter<UpToDateMoviesAd
 
         final MovieResult currentItem = mMovieList.get(position);
 
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams((int) (width/(2.3)),(int) ((height)/2.5));
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams((int) (width/(3.3)),(int) ((height)/2.5));
         layoutParams.setMargins(10,0,0,20);
 
         holder.cardView.setLayoutParams(layoutParams);
